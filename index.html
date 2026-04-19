@@ -1,399 +1,397 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>호문쿨루스 찾기</title>
+<title>내가 만일 호문쿨루스 라면...?</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@300;400;500&display=swap');
 
-:root {
---bg: #0a0a0a;
---ink: #e8e4d9;
---ink-dim: #8a857a;
---accent: #c9a961;
---line: rgba(232, 228, 217, 0.15);
-}
+  :root {
+    --bg: #0a0a0a;
+    --ink: #e8e4d9;
+    --ink-dim: #8a857a;
+    --accent: #c9a961;
+    --line: rgba(232, 228, 217, 0.15);
+  }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body {
-overscroll-behavior: none;
-}
+  html, body {
+    overscroll-behavior: none;
+  }
 
-html {
-background-color: #0a0a0a;
-min-height: 100%;
-}
+  html {
+    background-color: #0a0a0a;
+    min-height: 100%;
+  }
 
-body {
-background-color: #0a0a0a;
-background-image:
-radial-gradient(circle at 20% 30%, rgba(201, 169, 97, 0.08) 0%, transparent 50%),
-radial-gradient(circle at 80% 70%, rgba(201, 169, 97, 0.05) 0%, transparent 50%),
-url("data:image/svg+xml,%3Csvg viewBox=‘0 0 200 200’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘3’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’ opacity=‘0.03’/%3E%3C/svg%3E");
-background-attachment: fixed;
-background-size: cover, cover, 200px 200px;
-color: var(--ink);
-font-family: 'Noto Serif KR', 'Cormorant Garamond', serif;
-min-height: 100vh;
-display: flex;
-align-items: center;
-justify-content: center;
-overflow-x: hidden;
-position: relative;
-}
+  body {
+    background-color: #0a0a0a;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(201, 169, 97, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(201, 169, 97, 0.05) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover, cover, 200px 200px;
+    color: var(--ink);
+    font-family: 'Noto Serif KR', 'Cormorant Garamond', serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    position: relative;
+  }
 
-.app {
-width: 100%;
-max-width: 520px;
-padding: 40px 28px;
-position: relative;
-z-index: 2;
-}
+  .app {
+    width: 100%;
+    max-width: 520px;
+    padding: 40px 28px;
+    position: relative;
+    z-index: 2;
+  }
 
-.screen {
-display: none;
-animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
+  .screen {
+    display: none;
+    animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
 
-.screen.active { display: block; }
+  .screen.active { display: block; }
 
-@keyframes fadeUp {
-from { opacity: 0; transform: translateY(12px); }
-to { opacity: 1; transform: translateY(0); }
-}
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-/* ===== INTRO ===== */
-.intro { text-align: center; padding: 60px 0; }
+  /* ===== INTRO ===== */
+  .intro { text-align: center; padding: 60px 0; }
 
-.intro-mark {
-width: 60px;
-height: 60px;
-margin: 0 auto 48px;
-opacity: 0.9;
-}
+  .intro-mark {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 48px;
+    opacity: 0.9;
+  }
 
-.intro-overline {
-font-family: 'Cormorant Garamond', serif;
-font-style: italic;
-font-size: 14px;
-letter-spacing: 0.3em;
-color: var(--accent);
-text-transform: uppercase;
-margin-bottom: 24px;
-}
+  .intro-overline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
 
-.intro-title {
-font-family: ‘Noto Serif KR’, serif;
-font-weight: 300;
-font-size: 38px;
-line-height: 1.3;
-margin-bottom: 20px;
-letter-spacing: -0.01em;
-}
+  .intro-title {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    font-size: 38px;
+    line-height: 1.3;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
 
-.intro-title .em {
-font-family: ‘Cormorant Garamond’, serif;
-font-style: italic;
-font-weight: 400;
-color: var(--accent);
-}
+  .intro-title .em {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
 
-.intro-desc {
-font-size: 14px;
-line-height: 1.9;
-color: var(--ink-dim);
-margin-bottom: 56px;
-max-width: 340px;
-margin-left: auto;
-margin-right: auto;
-}
+  .intro-desc {
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--ink-dim);
+    margin-bottom: 56px;
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-.btn-start {
-background: transparent;
-border: 1px solid var(--accent);
-color: var(--accent);
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 16px;
-letter-spacing: 0.2em;
-padding: 16px 48px;
-cursor: pointer;
-transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-position: relative;
-text-transform: uppercase;
-}
+  .btn-start {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    letter-spacing: 0.2em;
+    padding: 16px 48px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+    text-transform: uppercase;
+  }
 
-.btn-start:hover {
-background: var(--accent);
-color: var(--bg);
-letter-spacing: 0.3em;
-}
+  .btn-start:hover {
+    background: var(--accent);
+    color: var(--bg);
+    letter-spacing: 0.3em;
+  }
 
-.intro-footer {
-margin-top: 80px;
-font-family: ‘Cormorant Garamond’, serif;
-font-style: italic;
-font-size: 13px;
-color: var(--ink-dim);
-opacity: 0.6;
-}
+  .intro-footer {
+    margin-top: 80px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-dim);
+    opacity: 0.6;
+  }
 
-/* ===== QUESTION ===== */
-.q-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 48px;
-padding-bottom: 20px;
-border-bottom: 1px solid var(--line);
-}
+  /* ===== QUESTION ===== */
+  .q-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 48px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+  }
 
-.q-number {
-font-family: ‘Cormorant Garamond’, serif;
-font-style: italic;
-font-size: 14px;
-color: var(--accent);
-letter-spacing: 0.2em;
-}
+  .q-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+  }
 
-.q-progress {
-display: flex;
-gap: 6px;
-}
+  .q-progress {
+    display: flex;
+    gap: 6px;
+  }
 
-.q-dot {
-width: 20px;
-height: 1px;
-background: var(--line);
-transition: background 0.4s;
-}
+  .q-dot {
+    width: 20px;
+    height: 1px;
+    background: var(--line);
+    transition: background 0.4s;
+  }
 
-.q-dot.filled { background: var(--accent); }
+  .q-dot.filled { background: var(--accent); }
 
-.q-title {
-font-family: ‘Noto Serif KR’, serif;
-font-weight: 400;
-font-size: 22px;
-line-height: 1.55;
-margin-bottom: 40px;
-letter-spacing: -0.005em;
-}
+  .q-title {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.55;
+    margin-bottom: 40px;
+    letter-spacing: -0.005em;
+  }
 
-.q-options {
-display: flex;
-flex-direction: column;
-gap: 2px;
-}
+  .q-options {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
 
-.q-option {
-background: transparent;
-border: none;
-border-top: 1px solid var(--line);
-color: var(--ink);
-font-family: ‘Noto Serif KR’, serif;
-font-size: 15px;
-text-align: left;
-padding: 20px 4px 20px 48px;
-cursor: pointer;
-transition: all 0.3s ease;
-line-height: 1.55;
-position: relative;
-display: block;
-width: 100%;
-}
+  .q-option {
+    background: transparent;
+    border: none;
+    border-top: 1px solid var(--line);
+    color: var(--ink);
+    font-family: 'Noto Serif KR', serif;
+    font-size: 15px;
+    text-align: left;
+    padding: 20px 4px 20px 48px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    line-height: 1.55;
+    position: relative;
+    display: block;
+    width: 100%;
+  }
 
-.q-option:last-child { border-bottom: 1px solid var(--line); }
+  .q-option:last-child { border-bottom: 1px solid var(--line); }
 
-.q-option .q-num-tag {
-position: absolute;
-left: 4px;
-top: 22px;
-font-family: ‘Cormorant Garamond’, serif;
-font-style: italic;
-font-size: 13px;
-color: var(--ink-dim);
-transition: color 0.3s;
-letter-spacing: 0.05em;
-}
+  .q-option .q-num-tag {
+    position: absolute;
+    left: 4px;
+    top: 22px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-dim);
+    transition: color 0.3s;
+    letter-spacing: 0.05em;
+  }
 
-.q-option:hover {
-color: var(--accent);
-padding-left: 56px;
-}
+  .q-option:hover {
+    color: var(--accent);
+    padding-left: 56px;
+  }
 
-.q-option:hover .q-num-tag {
-color: var(--accent);
-}
+  .q-option:hover .q-num-tag {
+    color: var(--accent);
+  }
 
-/* ===== RESULT ===== */
-.result {
-text-align: center;
-padding: 40px 0;
-}
+  /* ===== RESULT ===== */
+  .result {
+    text-align: center;
+    padding: 40px 0;
+  }
 
-.result-overline {
-font-family: ‘Cormorant Garamond’, serif;
-font-style: italic;
-font-size: 13px;
-letter-spacing: 0.35em;
-color: var(--ink-dim);
-text-transform: uppercase;
-margin-bottom: 12px;
-}
+  .result-overline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.35em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
 
-.result-label {
-font-family: ‘Noto Serif KR’, serif;
-font-weight: 300;
-font-size: 16px;
-color: var(--ink-dim);
-margin-bottom: 32px;
-}
+  .result-label {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    font-size: 16px;
+    color: var(--ink-dim);
+    margin-bottom: 32px;
+  }
 
-.result-illustration {
-width: 100%;
-max-width: 360px;
-margin: 0 auto 32px;
-aspect-ratio: 16/9;
-position: relative;
-overflow: hidden;
-border: 1px solid var(--line);
-}
+  .result-illustration {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto 32px;
+    aspect-ratio: 16/9;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
 
-.result-illustration img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-display: block;
-}
+  .result-illustration img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 
-.result-illustration::after {
-content: '';
-position: absolute;
-inset: 0;
-box-shadow: inset 0 0 40px rgba(10, 10, 10, 0.6);
-pointer-events: none;
-}
+  .result-illustration::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 0 40px rgba(10, 10, 10, 0.6);
+    pointer-events: none;
+  }
 
-.result-name-en {
-font-family: ‘Cormorant Garamond’, serif;
-font-style: italic;
-font-size: 18px;
-letter-spacing: 0.3em;
-color: var(--accent);
-margin-bottom: 8px;
-text-transform: uppercase;
-}
+  .result-name-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
 
-.result-name-ko {
-font-family: ‘Noto Serif KR’, serif;
-font-weight: 500;
-font-size: 32px;
-letter-spacing: -0.01em;
-margin-bottom: 32px;
-}
+  .result-name-ko {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 500;
+    font-size: 32px;
+    letter-spacing: -0.01em;
+    margin-bottom: 32px;
+  }
 
-.result-desc {
-font-size: 14px;
-line-height: 1.95;
-color: var(--ink-dim);
-max-width: 400px;
-margin: 0 auto 48px;
-text-align: left;
-padding: 24px;
-border-top: 1px solid var(--line);
-border-bottom: 1px solid var(--line);
-}
+  .result-desc {
+    font-size: 14px;
+    line-height: 1.95;
+    color: var(--ink-dim);
+    max-width: 400px;
+    margin: 0 auto 48px;
+    text-align: left;
+    padding: 24px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
 
-.result-quote {
-font-family: ‘Cormorant Garamond’, serif;
-font-style: italic;
-font-size: 16px;
-color: var(--accent);
-text-align: center;
-margin-bottom: 20px;
-line-height: 1.6;
-}
+  .result-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
 
-.result-actions {
-display: flex;
-gap: 12px;
-justify-content: center;
-max-width: 360px;
-margin: 0 auto;
-}
+  .result-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    max-width: 360px;
+    margin: 0 auto;
+  }
 
-#capture-target {
-padding: 32px 24px 36px;
-}
+  #capture-target {
+    padding: 32px 24px 36px;
+  }
 
-.btn-action {
-flex: 1;
-background: transparent;
-border: 1px solid var(--line);
-color: var(--ink);
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 13px;
-letter-spacing: 0.2em;
-padding: 14px 0;
-cursor: pointer;
-transition: all 0.3s;
-text-transform: uppercase;
-text-align: center;
-}
+  .btn-action {
+    flex: 1;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    padding: 14px 0;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    text-align: center;
+  }
 
-.btn-action:hover {
-border-color: var(--accent);
-color: var(--accent);
-}
+  .btn-action:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
 
-.btn-retry {
-display: block;
-margin: 32px auto 0;
-background: none;
-border: none;
-color: var(--ink-dim);
-font-family: ‘Cormorant Garamond’, serif;
-font-style: italic;
-font-size: 13px;
-cursor: pointer;
-letter-spacing: 0.15em;
-padding: 8px 16px;
-transition: color 0.3s;
-}
+  .btn-retry {
+    display: block;
+    margin: 32px auto 0;
+    background: none;
+    border: none;
+    color: var(--ink-dim);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    cursor: pointer;
+    letter-spacing: 0.15em;
+    padding: 8px 16px;
+    transition: color 0.3s;
+  }
 
-.btn-retry:hover { color: var(--accent); }
+  .btn-retry:hover { color: var(--accent); }
 
-.toast {
-position: fixed;
-bottom: 32px;
-left: 50%;
-transform: translateX(-50%) translateY(20px);
-background: var(--ink);
-color: var(--bg);
-padding: 12px 24px;
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 14px;
-letter-spacing: 0.1em;
-opacity: 0;
-transition: all 0.4s;
-pointer-events: none;
-z-index: 10;
-}
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--ink);
+    color: var(--bg);
+    padding: 12px 24px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    transition: all 0.4s;
+    pointer-events: none;
+    z-index: 10;
+  }
 
-.toast.show {
-opacity: 1;
-transform: translateX(-50%) translateY(0);
-}
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 
-@media (max-width: 480px) {
-.intro-title { font-size: 30px; }
-.q-title { font-size: 19px; }
-.result-name-ko { font-size: 26px; }
-}
+  @media (max-width: 480px) {
+    .intro-title { font-size: 30px; }
+    .q-title { font-size: 19px; }
+    .result-name-ko { font-size: 26px; }
+  }
 </style>
-
 </head>
 <body>
 
@@ -409,27 +407,23 @@ transform: translateX(-50%) translateY(0);
         <circle cx="30" cy="30" r="3" fill="#c9a961"/>
       </svg>
 
-```
-  <div class="intro-overline">Seven Deadly Sins</div>
-  <h1 class="intro-title">
-    당신 안의<br><span class="em">HOMUNCULUS</span>
-  </h1>
-  <p class="intro-desc">
-    다섯 개의 질문으로<br>
-    지금 마음을 지배하는<br>
-    일곱 죄악 중 하나를 찾습니다
-  </p>
+      <div class="intro-overline">Seven Deadly Sins</div>
+      <h1 class="intro-title">
+        당신 안의<br><span class="em">Homunculus</span>
+      </h1>
+      <p class="intro-desc">
+        다섯 개의 질문으로<br>
+        지금 마음을 지배하는<br>
+        일곱 죄악 중 하나를 찾습니다.
+      </p>
 
-  <button class="btn-start" onclick="startTest()">시작하기</button>
+      <button class="btn-start" onclick="startTest()">시작하기</button>
 
-  <div class="intro-footer">강철의 연금술사 헌정</div>
-</div>
-```
-
+      <div class="intro-footer">강철의 연금술사 헌정</div>
+    </div>
   </section>
 
   <!-- QUESTION -->
-
   <section class="screen" id="screen-question" style="padding-bottom: 100px;">
     <div class="q-header">
       <span class="q-number" id="q-num">I. of V.</span>
@@ -440,34 +434,30 @@ transform: translateX(-50%) translateY(0);
   </section>
 
   <!-- RESULT -->
-
   <section class="screen" id="screen-result">
     <div class="result">
       <div id="capture-target">
         <div class="result-overline">Your Sin</div>
         <div class="result-label">당신의 호문쿨루스는</div>
 
-```
-    <div class="result-illustration" id="result-illust"></div>
+        <div class="result-illustration" id="result-illust"></div>
 
-    <div class="result-name-en" id="result-en"></div>
-    <div class="result-name-ko" id="result-ko"></div>
+        <div class="result-name-en" id="result-en"></div>
+        <div class="result-name-ko" id="result-ko"></div>
 
-    <div class="result-desc" id="result-desc">
-      <div class="result-quote" id="result-quote"></div>
-      <div id="result-body"></div>
+        <div class="result-desc" id="result-desc">
+          <div class="result-quote" id="result-quote"></div>
+          <div id="result-body"></div>
+        </div>₩
+      </div>
+
+      <div class="result-actions">
+        <button class="btn-action" onclick="shareResult()">공유하기</button>
+        <button class="btn-action" onclick="saveResult()">저장하기</button>
+      </div>
+
+      <button class="btn-retry" onclick="goHome()">처음으로</button>
     </div>
-  </div>
-
-  <div class="result-actions">
-    <button class="btn-action" onclick="shareResult()">공유하기</button>
-    <button class="btn-action" onclick="saveResult()">저장하기</button>
-  </div>
-
-  <button class="btn-retry" onclick="goHome()">처음으로</button>
-</div>
-```
-
   </section>
 </div>
 
@@ -546,176 +536,49 @@ transform: translateX(-50%) translateY(0);
       ko: "프라이드",
       quote: "I am above all others.",
       desc: "당신은 지금 '나는 더 낫다'는 감각으로 세상을 버티고 있습니다. 그 자부심은 당신을 지켜주는 갑옷이지만, 그 안에서 당신은 종종 외롭습니다. 누구에게도 약한 모습을 보이지 못하니까요.",
-      svg: `<svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#e8e4d9" stroke-width="0.8">
-        <path d="M30 40 Q15 80 25 130 M170 40 Q185 80 175 130 M20 70 Q5 110 20 150 M180 70 Q195 110 180 150" stroke="#c9a961" stroke-width="0.6" opacity="0.55"/>
-        <path d="M45 60 Q35 95 50 120 M155 60 Q165 95 150 120" stroke="#c9a961" stroke-width="0.6" opacity="0.4"/>
-        <path d="M65 55 Q70 40 100 38 Q130 40 135 55 L138 95 Q138 118 118 125 L82 125 Q62 118 62 95 Z"/>
-        <path d="M65 55 Q78 42 95 52 Q112 42 135 55"/>
-        <ellipse cx="86" cy="82" rx="6" ry="2.5" stroke="#c9a961"/>
-        <ellipse cx="114" cy="82" rx="6" ry="2.5"/>
-        <circle cx="86" cy="82" r="1.8" fill="#c9a961" stroke="none"/>
-        <circle cx="114" cy="82" r="1.5" fill="#e8e4d9" stroke="none"/>
-        <path d="M96 95 L96 102 L104 102 L104 95"/>
-        <path d="M88 112 Q100 116 112 112"/>
-        <path d="M85 125 L85 145 M115 125 L115 145"/>
-        <path d="M62 175 L62 230 L138 230 L138 175 Q138 148 115 143 L85 143 Q62 148 62 175"/>
-        <circle cx="100" cy="200" r="10" stroke="#c9a961" stroke-width="0.6"/>
-        <path d="M93 200 Q100 195 107 200 Q100 205 93 200" stroke="#c9a961" stroke-width="0.5"/>
-        <text x="100" y="262" text-anchor="middle" font-family="serif" font-style="italic" font-size="11" fill="#c9a961" stroke="none" letter-spacing="5">PRIDE</text>
-      </svg>`
+      image: "images/pride.jpeg"
     },
     greed: {
       en: "Greed",
       ko: "그리드",
       quote: "I want everything.",
       desc: "당신은 지금 '더 가지고 싶다'는 열망으로 움직이고 있습니다. 그 욕망은 당신을 전진시키는 엔진이지만, 손에 넣어도 곧 허기가 돌아옵니다. 채움보다 다음이 더 궁금한 상태입니다.",
-      svg: `<svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#e8e4d9" stroke-width="0.8">
-        <path d="M60 48 L70 30 L80 48 L88 28 L95 50 L100 26 L105 50 L112 28 L120 48 L130 30 L140 48"/>
-        <path d="M95 26 L95 60 L105 60 L105 26" stroke="#c9a961" fill="#c9a961" fill-opacity="0.15"/>
-        <path d="M60 48 Q55 75 62 105 L85 130 L115 130 L138 105 Q145 75 140 48"/>
-        <ellipse cx="83" cy="85" rx="7" ry="3"/>
-        <ellipse cx="117" cy="85" rx="7" ry="3"/>
-        <circle cx="83" cy="85" r="1.5" fill="#e8e4d9" stroke="none"/>
-        <circle cx="117" cy="85" r="1.5" fill="#e8e4d9" stroke="none"/>
-        <path d="M95 100 L95 108 L105 108 L105 100"/>
-        <path d="M72 115 L128 115" stroke-width="0.6"/>
-        <path d="M75 115 L77 125 L81 120 L85 128 L89 120 L93 127 L97 120 L100 128 L103 120 L107 127 L111 120 L115 128 L119 120 L123 125 L125 115" stroke="#c9a961"/>
-        <path d="M60 140 L60 215 L140 215 L140 140"/>
-        <path d="M75 165 L125 165" stroke-width="0.6"/>
-        <circle cx="100" cy="185" r="12" stroke="#c9a961"/>
-        <path d="M92 185 Q100 178 108 185 Q100 192 92 185" stroke="#c9a961"/>
-        <path d="M60 215 L50 255 M140 215 L150 255"/>
-        <text x="100" y="270" text-anchor="middle" font-family="serif" font-style="italic" font-size="11" fill="#c9a961" stroke="none" letter-spacing="5">GREED</text>
-      </svg>`
+      image: "images/greed.jpeg"
     },
     wrath: {
       en: "Wrath",
       ko: "래스",
       quote: "I will break you.",
       desc: "당신은 지금 분노 안에 있습니다. 누군가가, 혹은 무언가가 당신을 반복해서 건드리고 있고, 당신은 그것을 쉽게 놓지 못합니다. 분노는 당신의 칼이지만, 자주 당신 자신을 먼저 벱니다.",
-      svg: `<svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#e8e4d9" stroke-width="0.8">
-        <path d="M65 50 Q70 35 100 32 Q130 35 135 50 L140 95 Q140 120 118 130 L82 130 Q60 120 60 95 Z"/>
-        <path d="M65 50 Q85 38 100 42 Q115 38 135 50"/>
-        <path d="M70 75 L80 73 M75 77 L77 71" stroke="#c9a961"/>
-        <path d="M72 80 L88 84" stroke-width="1.2" stroke="#c9a961"/>
-        <path d="M72 80 Q80 77 88 80" stroke="#c9a961" stroke-width="0.6"/>
-        <ellipse cx="117" cy="84" rx="6" ry="2.5"/>
-        <circle cx="117" cy="84" r="1.5" fill="#e8e4d9" stroke="none"/>
-        <path d="M94 98 L106 98 L104 108 L96 108 Z"/>
-        <path d="M75 115 L85 115 M95 115 Q100 118 105 115 M115 115 L125 115" stroke-width="0.6"/>
-        <path d="M85 120 Q100 125 115 120"/>
-        <path d="M62 148 L62 225 L138 225 L138 148 Q138 135 118 132 L82 132 Q62 135 62 148"/>
-        <path d="M160 60 L155 65 L155 185 L160 190 L165 185 L165 65 Z" stroke="#c9a961" fill="#c9a961" fill-opacity="0.1"/>
-        <circle cx="160" cy="55" r="5" stroke="#c9a961" fill="#c9a961" fill-opacity="0.2"/>
-        <path d="M160 60 L160 190" stroke="#c9a961" stroke-width="0.5"/>
-        <path d="M140 195 L160 190 L165 185" stroke-width="0.6"/>
-        <text x="100" y="262" text-anchor="middle" font-family="serif" font-style="italic" font-size="11" fill="#c9a961" stroke="none" letter-spacing="5">WRATH</text>
-      </svg>`
+      image: "images/wrath.jpeg"
     },
     sloth: {
       en: "Sloth",
       ko: "슬로스",
       quote: "Leave me alone.",
       desc: "당신은 지금 많이 지쳐있습니다. 움직이고 싶지 않고, 시작하고 싶지 않고, 결정하고 싶지 않습니다. 이것은 게으름이 아니라 당신이 너무 오래 힘들었다는 신호입니다.",
-      svg: `<svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#e8e4d9" stroke-width="0.8">
-        <path d="M70 50 Q80 30 100 30 Q120 30 130 50 L132 85 Q132 105 118 115 L82 115 Q68 105 68 85 Z"/>
-        <path d="M70 50 Q85 45 95 48 Q110 45 130 50"/>
-        <path d="M78 80 Q82 83 86 80" stroke-width="0.7"/>
-        <path d="M114 80 Q118 83 122 80" stroke-width="0.7"/>
-        <path d="M92 100 Q100 102 108 100"/>
-        <path d="M40 135 Q40 120 55 118 L80 115 L120 115 L145 118 Q160 120 160 135 L160 220 L40 220 Z"/>
-        <path d="M55 160 Q100 170 145 160" stroke-width="0.6"/>
-        <path d="M60 185 L140 185" stroke-width="0.5"/>
-        <circle cx="100" cy="200" r="14" stroke="#c9a961" stroke-width="0.6"/>
-        <path d="M90 200 Q100 192 110 200 Q100 208 90 200" stroke="#c9a961" stroke-width="0.5"/>
-        <g stroke="#c9a961" stroke-width="0.6">
-          <circle cx="40" cy="150" r="4"/>
-          <circle cx="36" cy="158" r="4"/>
-          <circle cx="40" cy="166" r="4"/>
-          <circle cx="36" cy="174" r="4"/>
-          <circle cx="40" cy="182" r="4"/>
-        </g>
-        <g stroke="#c9a961" stroke-width="0.6">
-          <circle cx="160" cy="150" r="4"/>
-          <circle cx="164" cy="158" r="4"/>
-          <circle cx="160" cy="166" r="4"/>
-          <circle cx="164" cy="174" r="4"/>
-          <circle cx="160" cy="182" r="4"/>
-        </g>
-        <text x="100" y="262" text-anchor="middle" font-family="serif" font-style="italic" font-size="11" fill="#c9a961" stroke="none" letter-spacing="5">SLOTH</text>
-      </svg>`
+      image: "images/sloth.jpeg"
     },
     lust: {
       en: "Lust",
       ko: "러스트",
       quote: "Come closer.",
       desc: "당신은 지금 누군가에게, 혹은 어떤 상태에 깊이 끌리고 있습니다. 단순한 욕망이 아니라 닿고 싶음, 녹아들고 싶음에 가깝습니다. 그 갈망은 당신을 살아있게 하지만, 동시에 당신을 흔듭니다.",
-      svg: `<svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#e8e4d9" stroke-width="0.8">
-        <path d="M55 50 Q60 25 100 22 Q140 25 145 50 Q155 90 140 140 Q135 170 125 195 L120 115 L80 115 L75 195 Q65 170 60 140 Q45 90 55 50 Z"/>
-        <path d="M70 55 Q75 45 85 52 Q100 42 115 52 Q125 45 130 55" stroke-width="0.6"/>
-        <ellipse cx="85" cy="78" rx="6" ry="2.5" stroke="#c9a961"/>
-        <ellipse cx="115" cy="78" rx="6" ry="2.5" stroke="#c9a961"/>
-        <circle cx="85" cy="78" r="1.5" fill="#c9a961" stroke="none"/>
-        <circle cx="115" cy="78" r="1.5" fill="#c9a961" stroke="none"/>
-        <path d="M93 92 L93 98 L107 98 L107 92"/>
-        <path d="M88 108 Q100 114 112 108" stroke="#c9a961" stroke-width="0.6"/>
-        <path d="M75 125 Q100 120 125 125"/>
-        <circle cx="100" cy="140" r="7" stroke="#c9a961" stroke-width="0.6"/>
-        <path d="M94 140 Q100 135 106 140 Q100 145 94 140" stroke="#c9a961" stroke-width="0.5"/>
-        <path d="M30 180 L60 160 M25 200 L60 175 M25 220 L60 190" stroke="#c9a961" stroke-width="0.8"/>
-        <path d="M30 180 L20 175 M25 200 L12 195 M25 220 L12 220" stroke="#c9a961" stroke-width="0.6"/>
-        <path d="M170 180 L140 160 M175 200 L140 175 M175 220 L140 190" stroke="#c9a961" stroke-width="0.8"/>
-        <path d="M170 180 L180 175 M175 200 L188 195 M175 220 L188 220" stroke="#c9a961" stroke-width="0.6"/>
-        <text x="100" y="262" text-anchor="middle" font-family="serif" font-style="italic" font-size="11" fill="#c9a961" stroke="none" letter-spacing="5">LUST</text>
-      </svg>`
+      image: "images/lust.jpeg"
     },
     gluttony: {
       en: "Gluttony",
       ko: "글러트니",
       quote: "More. I need more.",
       desc: "당신은 지금 채워도 채워도 부족한 상태입니다. 음식이든, 정보든, 관계든, 소비든 — 무언가를 계속 입력하지만 배가 차지 않습니다. 진짜 배고픈 것이 무엇인지 스스로도 잘 모릅니다.",
-      svg: `<svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#e8e4d9" stroke-width="0.8">
-        <ellipse cx="100" cy="70" rx="48" ry="42"/>
-        <path d="M70 55 Q75 50 82 55 M118 55 Q125 50 130 55" stroke-width="0.6"/>
-        <ellipse cx="82" cy="62" rx="3" ry="2"/>
-        <ellipse cx="118" cy="62" rx="3" ry="2"/>
-        <circle cx="82" cy="62" r="1" fill="#e8e4d9" stroke="none"/>
-        <circle cx="118" cy="62" r="1" fill="#e8e4d9" stroke="none"/>
-        <path d="M75 75 Q78 80 82 78 M118 78 Q122 80 125 75" stroke="#c9a961" stroke-width="0.5"/>
-        <ellipse cx="100" cy="90" rx="20" ry="10" stroke="#c9a961"/>
-        <path d="M85 88 L87 96 M92 86 L92 98 M100 85 L100 99 M108 86 L108 98 M115 88 L113 96" stroke="#c9a961" stroke-width="0.6"/>
-        <ellipse cx="100" cy="180" rx="55" ry="55"/>
-        <circle cx="100" cy="180" r="10" stroke="#c9a961" stroke-width="0.6"/>
-        <path d="M92 180 Q100 172 108 180 Q100 188 92 180" stroke="#c9a961" stroke-width="0.5"/>
-        <circle cx="100" cy="180" r="28" stroke="#c9a961" stroke-width="0.4" opacity="0.4"/>
-        <text x="100" y="262" text-anchor="middle" font-family="serif" font-style="italic" font-size="10" fill="#c9a961" stroke="none" letter-spacing="4">GLUTTONY</text>
-      </svg>`
+      image: "images/gluttony.jpeg"
     },
     envy: {
       en: "Envy",
       ko: "엔비",
       quote: "Why them, not me?",
       desc: "당신은 지금 질투 안에 있습니다. 남이 가진 것을 보면 나에게 없는 것이 먼저 보이고, 그들의 행복이 곧 나의 결핍처럼 느껴집니다. 이 감정은 사실 '나도 저렇게 되고 싶다'는 간절함의 다른 얼굴입니다. 당신을 괴롭히는 만큼, 당신이 무엇을 진짜 원하는지도 가르쳐줍니다.",
-      svg: `<svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#e8e4d9" stroke-width="0.8">
-        <path d="M45 60 Q50 120 55 175 M55 55 Q60 125 65 180 M65 50 Q68 130 72 185 M75 48 Q75 130 78 190 M125 48 Q125 130 122 190 M135 50 Q132 130 128 185 M145 55 Q140 125 135 180 M155 60 Q150 120 145 175"/>
-        <path d="M45 60 Q55 30 75 25 Q100 20 125 25 Q145 30 155 60"/>
-        <path d="M65 58 L135 58 L138 65 L62 65 Z" stroke="#c9a961" fill="#c9a961" fill-opacity="0.1"/>
-        <circle cx="88" cy="50" r="4" fill="#c9a961" stroke="none" opacity="0.6"/>
-        <path d="M70 75 Q75 70 85 75 L135 75 Q135 100 125 115 L85 115 Q75 112 72 105 Z"/>
-        <path d="M78 90 Q82 95 86 90" stroke-width="0.6" stroke="#c9a961"/>
-        <path d="M114 90 Q118 95 122 90" stroke-width="0.6" stroke="#c9a961"/>
-        <circle cx="82" cy="90" r="1.5" fill="#c9a961" stroke="none"/>
-        <circle cx="118" cy="90" r="1.5" fill="#c9a961" stroke="none"/>
-        <path d="M88 105 L100 112 L112 105 L108 112 L100 118 L92 112 Z" stroke="#c9a961"/>
-        <path d="M95 118 Q100 125 105 118" stroke="#c9a961" stroke-width="0.6"/>
-        <path d="M75 125 L75 175 L125 175 L125 125"/>
-        <path d="M82 155 L118 155" stroke-width="0.5" opacity="0.5"/>
-        <circle cx="100" cy="145" r="8" stroke="#c9a961" stroke-width="0.6"/>
-        <path d="M94 145 Q100 140 106 145 Q100 150 94 145" stroke="#c9a961" stroke-width="0.5"/>
-        <path d="M75 175 L65 215 M125 175 L135 215"/>
-        <path d="M90 185 L90 225 M110 185 L110 225"/>
-        <text x="100" y="262" text-anchor="middle" font-family="serif" font-style="italic" font-size="11" fill="#c9a961" stroke="none" letter-spacing="5">ENVY</text>
-      </svg>`
+      image: "images/envy.jpeg"
     }
   };
 
@@ -811,7 +674,7 @@ transform: translateX(-50%) translateY(0);
     document.getElementById('result-ko').textContent = h.ko;
     document.getElementById('result-quote').textContent = `" ${h.quote} "`;
     document.getElementById('result-body').textContent = h.desc;
-    document.getElementById('result-illust').innerHTML = h.svg;
+    document.getElementById('result-illust').innerHTML = `<img src="${h.image}" alt="${h.en}">`;
 
     showScreen('screen-result');
   }
