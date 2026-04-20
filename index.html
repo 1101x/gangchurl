@@ -62,16 +62,12 @@
     font-size: 14px; line-height: 1.9; color: var(--ink-dim);
     margin-bottom: 56px; max-width: 340px; margin-left: auto; margin-right: auto;
   }
-
-  .intro-actions {
-    display: inline-flex; align-items: center; gap: 10px;
-  }
   .btn-start {
     background: transparent; border: 1px solid var(--accent); color: var(--accent);
     font-family: 'Cormorant Garamond', serif; font-size: 16px; letter-spacing: 0.2em;
     padding: 16px 48px; cursor: pointer;
     transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-    text-transform: uppercase;
+    position: relative; text-transform: uppercase;
   }
   .btn-start:hover, .btn-start.hand-hover {
     background: var(--accent); color: var(--bg); letter-spacing: 0.3em;
@@ -97,7 +93,6 @@
     font-family: 'Noto Serif KR', serif; font-weight: 400;
     font-size: 22px; line-height: 1.55; margin-bottom: 40px; letter-spacing: -0.005em;
   }
-  #screen-question { padding-bottom: 100px; }
   .q-options { display: flex; flex-direction: column; gap: 2px; }
   .q-option {
     background: transparent; border: none; border-top: 1px solid var(--line);
@@ -110,12 +105,13 @@
   .q-option .q-num-tag {
     position: absolute; left: 4px; top: 22px;
     font-family: 'Cormorant Garamond', serif; font-style: italic;
-    font-size: 13px; color: var(--ink-dim); letter-spacing: 0.05em;
-    transition: color 0.3s;
+    font-size: 13px; color: var(--ink-dim);
+    transition: color 0.3s; letter-spacing: 0.05em;
   }
   .q-option:hover, .q-option.hand-hover {
     color: var(--accent); padding-left: 56px;
   }
+  /* 스와이프 진행 상태 바 */
   .q-option.hand-hover::after {
     content: ''; position: absolute; left: 0; bottom: 0; height: 1px;
     background: var(--accent); width: var(--swipe-progress, 0%);
@@ -197,11 +193,13 @@
 
   /* ===== HAND TRACKING UI ===== */
   .ht-toggle {
-    width: 52px; height: 52px;
+    position: fixed; top: 20px; right: 20px;
+    width: 42px; height: 42px;
     border: 1px solid var(--line); background: rgba(10, 10, 10, 0.7);
-    color: var(--ink-dim); cursor: pointer;
-    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--ink-dim); cursor: pointer; z-index: 20;
+    display: flex; align-items: center; justify-content: center;
     transition: all 0.3s;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
   }
   .ht-toggle:hover { border-color: var(--accent); color: var(--accent); }
   .ht-toggle.active {
@@ -209,7 +207,7 @@
     box-shadow: 0 0 12px rgba(201, 169, 97, 0.3);
   }
   .ht-toggle.loading { opacity: 0.6; pointer-events: none; }
-  .ht-toggle svg { width: 20px; height: 20px; }
+  .ht-toggle svg { width: 18px; height: 18px; }
 
   .ht-cursor {
     position: fixed; width: 32px; height: 32px; border-radius: 50%;
@@ -219,13 +217,24 @@
     transform: translate(-50%, -50%);
     transition: width 0.15s, height 0.15s, background 0.15s, border-color 0.15s;
     display: none; left: 0; top: 0;
-    will-change: left, top;
+    will-change: transform, left, top;
   }
   .ht-cursor.visible { display: block; }
-  .ht-cursor.curl {
+  .ht-cursor.fist {
     width: 20px; height: 20px;
     background: rgba(201, 169, 97, 0.5); border-color: #fff;
   }
+
+  .ht-hint {
+    position: fixed; bottom: 18px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 11px; letter-spacing: 0.25em;
+    color: var(--ink-dim); text-transform: uppercase;
+    opacity: 0; transition: opacity 0.5s; pointer-events: none;
+    z-index: 15; white-space: nowrap; text-align: center;
+  }
+  .ht-hint.visible { opacity: 0.7; }
 
   @media (max-width: 480px) {
     .intro-title { font-size: 30px; }
@@ -237,6 +246,7 @@
 <body>
 
 <div class="app">
+  <!-- INTRO -->
   <section class="screen active" id="screen-intro">
     <div class="intro">
       <svg class="intro-mark" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -251,24 +261,15 @@
       <p class="intro-desc">
         다섯 개의 질문으로<br>
         지금 마음을 지배하는<br>
-        칠대 죄악 중 하나를 찾습니다.
+        일곱 죄악 중 하나를 찾습니다.
       </p>
-      <div class="intro-actions">
-        <button class="btn-start" onclick="startTest()">시작하기</button>
-        <button class="ht-toggle" id="ht-toggle" title="손 제스처 제어" aria-label="hand tracking">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M7 11V6a1.5 1.5 0 0 1 3 0v5"/>
-            <path d="M10 11V4.5a1.5 1.5 0 0 1 3 0V11"/>
-            <path d="M13 11V5.5a1.5 1.5 0 0 1 3 0V11"/>
-            <path d="M16 11V7.5a1.5 1.5 0 0 1 3 0V16a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6v-3.5a1.5 1.5 0 0 1 3 0V13"/>
-          </svg>
-        </button>
-      </div>
+      <button class="btn-start" onclick="startTest()">시작하기</button>
       <div class="intro-footer">강철의 연금술사 헌정</div>
     </div>
   </section>
 
-  <section class="screen" id="screen-question">
+  <!-- QUESTION -->
+  <section class="screen" id="screen-question" style="padding-bottom: 100px;">
     <div class="q-header">
       <span class="q-number" id="q-num">I. of V.</span>
       <div class="q-progress" id="q-progress"></div>
@@ -277,6 +278,7 @@
     <div class="q-options" id="q-options"></div>
   </section>
 
+  <!-- RESULT -->
   <section class="screen" id="screen-result">
     <div class="result">
       <div id="capture-target">
@@ -285,7 +287,7 @@
         <div class="result-illustration" id="result-illust"></div>
         <div class="result-name-en" id="result-en"></div>
         <div class="result-name-ko" id="result-ko"></div>
-        <div class="result-desc">
+        <div class="result-desc" id="result-desc">
           <div class="result-quote" id="result-quote"></div>
           <div id="result-body"></div>
         </div>
@@ -299,54 +301,76 @@
   </section>
 </div>
 
+<!-- Hand tracking UI -->
+<button class="ht-toggle" id="ht-toggle" title="손 제스처 제어 켜기/끄기" aria-label="hand tracking toggle">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 11V6a1.5 1.5 0 0 1 3 0v5"/>
+    <path d="M10 11V4.5a1.5 1.5 0 0 1 3 0V11"/>
+    <path d="M13 11V5.5a1.5 1.5 0 0 1 3 0V11"/>
+    <path d="M16 11V7.5a1.5 1.5 0 0 1 3 0V16a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6v-3.5a1.5 1.5 0 0 1 3 0V13"/>
+  </svg>
+</button>
+
 <div class="ht-cursor" id="ht-cursor"></div>
-<div class="toast" id="toast"></div>
+<div class="ht-hint" id="ht-hint"></div>
+
+<div class="toast" id="toast">복사되었습니다</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script>
-  // ===== DATA =====
+  // ===== DATA (원본과 동일) =====
   const questions = [
-    { q: "요즘 잠들기 전, 머릿속에 가장 자주 떠오르는 것은?", options: [
-      { text: "내가 이룬 것들. 내가 더 나은 사람이라는 생각", sin: "pride" },
-      { text: "갖고 싶은 것들, 더 많이 벌고 싶다는 계산", sin: "greed" },
-      { text: "나를 화나게 했던 사람, 혹은 상황", sin: "wrath" },
-      { text: "아무 생각 없이 그냥 눕고 싶다", sin: "sloth" },
-      { text: "누군가에 대한 갈망, 닿고 싶은 사람", sin: "lust" },
-      { text: "뭘 먹고 싶다, 뭘 더 하고 싶다", sin: "gluttony" },
-      { text: "나보다 잘 나가는 사람들", sin: "envy" } ]},
-    { q: "SNS를 볼 때 가장 자주 드는 감정은?", options: [
-      { text: "내가 저 사람보다 낫다", sin: "pride" },
-      { text: "저거 나도 가져야겠다", sin: "greed" },
-      { text: "짜증, 분노, 왜 저러나 싶음", sin: "wrath" },
-      { text: "아무것도 안 느껴지고 그냥 스크롤", sin: "sloth" },
-      { text: "특정 누군가에게 자꾸 눈이 간다", sin: "lust" },
-      { text: "더 보고 싶고 멈출 수 없다", sin: "gluttony" },
-      { text: "왜 저 사람은 되고 나는 안 되지", sin: "envy" } ]},
-    { q: "최근, 누군가에게 말하지 못한 진짜 속마음이 있다면?", options: [
-      { text: "사실 내가 더 잘해", sin: "pride" },
-      { text: "저거 내 거였어야 해", sin: "greed" },
-      { text: "진짜 꼴 보기 싫다", sin: "wrath" },
-      { text: "아무것도 하기 싫어", sin: "sloth" },
-      { text: "계속 생각나", sin: "lust" },
-      { text: "이걸로는 부족해", sin: "gluttony" },
-      { text: "왜 쟤만 돼?", sin: "envy" } ]},
-    { q: "지금 가장 피하고 싶은 상황은?", options: [
-      { text: "내가 틀렸다고 인정해야 하는 순간", sin: "pride" },
-      { text: "가진 것을 잃는 것", sin: "greed" },
-      { text: "나를 무시하는 사람과 마주치는 것", sin: "wrath" },
-      { text: "해야 할 일을 시작해야 하는 순간", sin: "sloth" },
-      { text: "그 사람이 나를 모른 척하는 것", sin: "lust" },
-      { text: "멈춰야 하는 것", sin: "gluttony" },
-      { text: "나보다 잘 된 사람의 소식을 듣는 것", sin: "envy" } ]},
-    { q: "당신에게 힘이 하나 주어진다면, 무엇을 택하시겠습니까?", options: [
-      { text: "누구도 나를 넘볼 수 없는 완벽함", sin: "pride" },
-      { text: "원하는 건 뭐든 가질 수 있는 힘", sin: "greed" },
-      { text: "나를 건드린 사람을 무너뜨리는 힘", sin: "wrath" },
-      { text: "아무것도 안 해도 모든 게 되는 상태", sin: "sloth" },
-      { text: "원하는 사람의 마음을 얻는 것", sin: "lust" },
-      { text: "아무리 채워도 배부르지 않는 몸", sin: "gluttony" },
-      { text: "다른 이가 가진 걸 내 것으로 만드는 힘", sin: "envy" } ]}
+    { q: "요즘 잠들기 전, 머릿속에 가장 자주 떠오르는 것은?",
+      options: [
+        { text: "내가 이룬 것들. 내가 더 나은 사람이라는 생각", sin: "pride" },
+        { text: "갖고 싶은 것들, 더 많이 벌고 싶다는 계산", sin: "greed" },
+        { text: "나를 화나게 했던 사람, 혹은 상황", sin: "wrath" },
+        { text: "아무 생각 없이 그냥 눕고 싶다", sin: "sloth" },
+        { text: "누군가에 대한 갈망, 닿고 싶은 사람", sin: "lust" },
+        { text: "뭘 먹고 싶다, 뭘 더 하고 싶다", sin: "gluttony" },
+        { text: "나보다 잘 나가는 사람들", sin: "envy" }
+      ]},
+    { q: "SNS를 볼 때 가장 자주 드는 감정은?",
+      options: [
+        { text: "내가 저 사람보다 낫다", sin: "pride" },
+        { text: "저거 나도 가져야겠다", sin: "greed" },
+        { text: "짜증, 분노, 왜 저러나 싶음", sin: "wrath" },
+        { text: "아무것도 안 느껴지고 그냥 스크롤", sin: "sloth" },
+        { text: "특정 누군가에게 자꾸 눈이 간다", sin: "lust" },
+        { text: "더 보고 싶고 멈출 수 없다", sin: "gluttony" },
+        { text: "왜 저 사람은 되고 나는 안 되지", sin: "envy" }
+      ]},
+    { q: "최근, 누군가에게 말하지 못한 진짜 속마음이 있다면?",
+      options: [
+        { text: "사실 내가 더 잘해", sin: "pride" },
+        { text: "저거 내 거였어야 해", sin: "greed" },
+        { text: "진짜 꼴 보기 싫다", sin: "wrath" },
+        { text: "아무것도 하기 싫어", sin: "sloth" },
+        { text: "계속 생각나", sin: "lust" },
+        { text: "이걸로는 부족해", sin: "gluttony" },
+        { text: "왜 쟤만 돼?", sin: "envy" }
+      ]},
+    { q: "지금 가장 피하고 싶은 상황은?",
+      options: [
+        { text: "내가 틀렸다고 인정해야 하는 순간", sin: "pride" },
+        { text: "가진 것을 잃는 것", sin: "greed" },
+        { text: "나를 무시하는 사람과 마주치는 것", sin: "wrath" },
+        { text: "해야 할 일을 시작해야 하는 순간", sin: "sloth" },
+        { text: "그 사람이 나를 모른 척하는 것", sin: "lust" },
+        { text: "멈춰야 하는 것", sin: "gluttony" },
+        { text: "나보다 잘 된 사람의 소식을 듣는 것", sin: "envy" }
+      ]},
+    { q: "당신에게 힘이 하나 주어진다면, 무엇을 택하시겠습니까?",
+      options: [
+        { text: "누구도 나를 넘볼 수 없는 완벽함", sin: "pride" },
+        { text: "원하는 건 뭐든 가질 수 있는 힘", sin: "greed" },
+        { text: "나를 건드린 사람을 무너뜨리는 힘", sin: "wrath" },
+        { text: "아무것도 안 해도 모든 게 되는 상태", sin: "sloth" },
+        { text: "원하는 사람의 마음을 얻는 것", sin: "lust" },
+        { text: "아무리 채워도 배부르지 않는 몸", sin: "gluttony" },
+        { text: "다른 이가 가진 걸 내 것으로 만드는 힘", sin: "envy" }
+      ]}
   ];
 
   const homunculi = {
@@ -374,84 +398,97 @@
   };
 
   // ===== STATE =====
-  const quiz = { currentQ: 0, scores: {}, answers: [] };
-  const resetScores = () => {
-    quiz.scores = { pride: 0, greed: 0, wrath: 0, sloth: 0, lust: 0, gluttony: 0, envy: 0 };
-  };
-
-  const $ = id => document.getElementById(id);
+  let currentQ = 0;
+  let scores = { pride: 0, greed: 0, wrath: 0, sloth: 0, lust: 0, gluttony: 0, envy: 0 };
+  let answers = [];
 
   function showScreen(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    $(id).classList.add('active');
+    document.getElementById(id).classList.add('active');
     window.scrollTo(0, 0);
+    updateHint();
   }
 
   function startTest() {
-    quiz.currentQ = 0;
-    resetScores();
-    quiz.answers = [];
+    currentQ = 0;
+    scores = { pride: 0, greed: 0, wrath: 0, sloth: 0, lust: 0, gluttony: 0, envy: 0 };
+    answers = [];
     renderQuestion();
     showScreen('screen-question');
   }
 
   function renderQuestion() {
-    const q = questions[quiz.currentQ];
+    const q = questions[currentQ];
     const romans = ['I', 'II', 'III', 'IV', 'V'];
-    $('q-num').textContent = `${romans[quiz.currentQ]}. of V.`;
-    $('q-title').textContent = q.q;
+    document.getElementById('q-num').textContent = `${romans[currentQ]}. of V.`;
+    document.getElementById('q-title').textContent = q.q;
 
-    $('q-progress').innerHTML = questions
-      .map((_, i) => `<div class="q-dot${i <= quiz.currentQ ? ' filled' : ''}"></div>`)
-      .join('');
+    const progress = document.getElementById('q-progress');
+    progress.innerHTML = '';
+    for (let i = 0; i < questions.length; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'q-dot' + (i <= currentQ ? ' filled' : '');
+      progress.appendChild(dot);
+    }
 
-    const shuffled = [...q.options].sort(() => Math.random() - 0.5);
-    $('q-options').innerHTML = '';
+    const shuffled = [...q.options];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    const opts = document.getElementById('q-options');
+    opts.innerHTML = '';
     shuffled.forEach((opt, i) => {
       const btn = document.createElement('button');
       btn.className = 'q-option';
-      btn.innerHTML = `<span class="q-num-tag">${String(i + 1).padStart(2, '0')}</span>${opt.text}`;
+      const num = String(i + 1).padStart(2, '0');
+      btn.innerHTML = `<span class="q-num-tag">${num}</span>${opt.text}`;
+      btn.style.animationDelay = (0.05 * i) + 's';
       btn.onclick = () => selectOption(opt.sin);
-      $('q-options').appendChild(btn);
+      btn.dataset.sin = opt.sin;
+      opts.appendChild(btn);
     });
   }
 
   function selectOption(sin) {
-    quiz.scores[sin] += 1;
-    quiz.answers.push(sin);
-    if (quiz.currentQ < questions.length - 1) {
-      quiz.currentQ++;
+    scores[sin] += 1;
+    answers.push(sin);
+    if (currentQ < questions.length - 1) {
+      currentQ++;
       renderQuestion();
-      const screen = $('screen-question');
+      const screen = document.getElementById('screen-question');
       screen.style.animation = 'none';
       void screen.offsetWidth;
       screen.style.animation = '';
+      updateHint();
     } else {
       showResult();
     }
   }
 
   function showResult() {
-    const lastSin = quiz.answers[quiz.answers.length - 1];
-    let max = 0, winner = lastSin;
-    for (const [sin, score] of Object.entries(quiz.scores)) {
+    let max = 0;
+    let winner = answers[answers.length - 1];
+    for (const [sin, score] of Object.entries(scores)) {
       if (score > max) { max = score; winner = sin; }
     }
-    if (quiz.scores[lastSin] === max) winner = lastSin;
+    const lastSin = answers[answers.length - 1];
+    if (scores[lastSin] === max) winner = lastSin;
 
     const h = homunculi[winner];
-    $('result-en').textContent = h.en;
-    $('result-ko').textContent = h.ko;
-    $('result-quote').textContent = `" ${h.quote} "`;
-    $('result-body').textContent = h.desc;
-    $('result-illust').innerHTML = `<img src="${h.image}" alt="${h.en}">`;
+    document.getElementById('result-en').textContent = h.en;
+    document.getElementById('result-ko').textContent = h.ko;
+    document.getElementById('result-quote').textContent = `" ${h.quote} "`;
+    document.getElementById('result-body').textContent = h.desc;
+    document.getElementById('result-illust').innerHTML = `<img src="${h.image}" alt="${h.en}">`;
     showScreen('screen-result');
   }
 
-  const goHome = () => showScreen('screen-intro');
+  function goHome() { showScreen('screen-intro'); }
 
   function shareResult() {
-    const ko = $('result-ko').textContent;
+    const ko = document.getElementById('result-ko').textContent;
     const url = window.location.href;
     const shareData = { title: '호문쿨루스 테스트', text: `나의 호문쿨루스는 ${ko}`, url };
     if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
@@ -465,35 +502,48 @@
   }
 
   async function saveResult() {
-    const target = $('capture-target');
-    const en = $('result-en').textContent;
+    const target = document.getElementById('capture-target');
+    const en = document.getElementById('result-en').textContent;
     const img = target.querySelector('img');
     if (img && !img.complete) {
-      await new Promise(res => { img.onload = res; img.onerror = res; });
+      await new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
     }
     showToast('이미지 생성 중...');
     setTimeout(() => {
       html2canvas(target, { backgroundColor: '#0a0a0a', scale: 2, useCORS: true, logging: false })
-        .then(canvas => canvas.toBlob(blob => {
-          if (!blob) return showToast('저장에 실패했습니다');
-          const url = URL.createObjectURL(blob);
-          const a = Object.assign(document.createElement('a'),
-            { href: url, download: `homunculus-${en.toLowerCase()}.png` });
-          document.body.appendChild(a); a.click(); a.remove();
-          URL.revokeObjectURL(url);
-          showToast('이미지가 저장되었습니다');
-        }, 'image/png'))
-        .catch(() => showToast('저장에 실패했습니다'));
+        .then(canvas => {
+          canvas.toBlob(blob => {
+            if (!blob) { showToast('저장에 실패했습니다'); return; }
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = `homunculus-${en.toLowerCase()}.png`;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('이미지가 저장되었습니다');
+          }, 'image/png');
+        }).catch(err => { console.error(err); showToast('저장에 실패했습니다'); });
     }, 100);
   }
 
   function showToast(msg) {
-    const t = $('toast');
+    const t = document.getElementById('toast');
     t.textContent = msg;
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2000);
   }
-  window.showToast = showToast;
+
+  function updateHint() {
+    const hint = document.getElementById('ht-hint');
+    if (!window.handTracking || !window.handTracking.active) { hint.classList.remove('visible'); return; }
+    const active = document.querySelector('.screen.active');
+    if (!active) return;
+    if (active.id === 'screen-question') {
+      hint.textContent = 'Swipe right across an option to select';
+    } else {
+      hint.textContent = 'Fist → Open palm to click';
+    }
+    hint.classList.add('visible');
+  }
 </script>
 
 <!-- ===== MEDIAPIPE HAND TRACKING ===== -->
@@ -501,41 +551,42 @@
   import { HandLandmarker, FilesetResolver }
     from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.17/vision_bundle.mjs";
 
-  const ht = {
-    active: false, landmarker: null, video: null, stream: null, rafId: null,
+  const handTracking = {
+    active: false, landmarker: null, video: null, stream: null,
     lastVideoTime: -1,
-    palm: { x: 0, y: 0, has: false },
-    gesture: { state: 'idle', type: null, startTime: 0 },
-    swipe: { history: [], cooldown: 0, locked: null },
-    hover: null
+    palm: { x: 0, y: 0, hasLast: false },
+    gesture: { state: 'idle', fistTime: 0 },
+    swipe: { history: [], cooldownUntil: 0, lockedOption: null },
+    hoverEl: null, rafId: null
   };
+  window.handTracking = handTracking;
 
-  // landmark pairs for 4 fingers (index → pinky)
-  const FINGERS = [{t:8,m:5},{t:12,m:9},{t:16,m:13},{t:20,m:17}];
-  const d2 = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
-
-  const countBent = (lm, fn) => FINGERS.reduce((n, f) => n + (fn(lm, f) ? 1 : 0), 0);
-  const curled   = (lm, f) => d2(lm[f.t], lm[0]) < d2(lm[f.m], lm[0]) * 1.15;
-  const extended = (lm, f) => d2(lm[f.t], lm[0]) > d2(lm[f.m], lm[0]) * 1.5;
-  const is4Curled = lm => countBent(lm, curled)   >= 3;
-  const isOpen    = lm => countBent(lm, extended) >= 4;
-
-  // thumb tucked = thumb tip (4) near palm center (9), relative to palm width (5↔17)
-  const thumbTucked = lm => d2(lm[4], lm[9]) < d2(lm[5], lm[17]) * 0.9;
+  const FINGERS = [
+    { tip: 8,  mcp: 5  }, { tip: 12, mcp: 9  },
+    { tip: 16, mcp: 13 }, { tip: 20, mcp: 17 }
+  ];
+  const dist2 = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+  const fingerCurled   = (lm, f) => dist2(lm[f.tip], lm[0]) < dist2(lm[f.mcp], lm[0]) * 1.15;
+  const fingerExtended = (lm, f) => dist2(lm[f.tip], lm[0]) > dist2(lm[f.mcp], lm[0]) * 1.5;
+  const isFist     = (lm) => { let c = 0; for (const f of FINGERS) if (fingerCurled(lm, f)) c++; return c >= 3; };
+  const isOpenPalm = (lm) => { let e = 0; for (const f of FINGERS) if (fingerExtended(lm, f)) e++; return e >= 4; };
 
   const toggleBtn = document.getElementById('ht-toggle');
   const cursorEl  = document.getElementById('ht-cursor');
 
-  toggleBtn.addEventListener('click', () => ht.active ? stop() : start());
+  toggleBtn.addEventListener('click', async () => {
+    if (handTracking.active) stopHandTracking();
+    else await startHandTracking();
+  });
 
-  async function start() {
+  async function startHandTracking() {
     toggleBtn.classList.add('loading');
     try {
-      if (!ht.landmarker) {
+      if (!handTracking.landmarker) {
         const vision = await FilesetResolver.forVisionTasks(
           "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.17/wasm"
         );
-        ht.landmarker = await HandLandmarker.createFromOptions(vision, {
+        handTracking.landmarker = await HandLandmarker.createFromOptions(vision, {
           baseOptions: {
             modelAssetPath: "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
             delegate: "GPU"
@@ -546,159 +597,191 @@
           minTrackingConfidence: 0.5
         });
       }
-      ht.stream = await navigator.mediaDevices.getUserMedia({
+
+      const stream = await navigator.mediaDevices.getUserMedia({
         video: { width: 640, height: 480, facingMode: 'user' }, audio: false
       });
-      ht.video = Object.assign(document.createElement('video'),
-        { playsInline: true, muted: true, srcObject: ht.stream });
-      ht.video.style.display = 'none';
-      document.body.appendChild(ht.video);
-      await new Promise(r => { ht.video.onloadedmetadata = () => ht.video.play().then(r); });
+      handTracking.stream = stream;
 
-      ht.active = true;
+      const video = document.createElement('video');
+      video.style.display = 'none';
+      video.playsInline = true; video.muted = true;
+      video.srcObject = stream;
+      document.body.appendChild(video);
+      handTracking.video = video;
+
+      await new Promise(res => { video.onloadedmetadata = () => { video.play().then(res); }; });
+
+      handTracking.active = true;
       toggleBtn.classList.remove('loading');
       toggleBtn.classList.add('active');
       cursorEl.classList.add('visible');
+      window.updateHint();
       loop();
-    } catch (e) {
-      console.error(e);
+    } catch (err) {
+      console.error('Hand tracking init failed:', err);
       toggleBtn.classList.remove('loading', 'active');
       window.showToast && window.showToast('카메라를 사용할 수 없습니다');
     }
   }
 
-  function stop() {
-    ht.active = false;
-    if (ht.rafId) cancelAnimationFrame(ht.rafId);
-    ht.stream?.getTracks().forEach(t => t.stop());
-    ht.video?.remove();
-    ht.stream = ht.video = null;
+  function stopHandTracking() {
+    handTracking.active = false;
+    if (handTracking.rafId) cancelAnimationFrame(handTracking.rafId);
+    if (handTracking.stream) {
+      handTracking.stream.getTracks().forEach(t => t.stop());
+      handTracking.stream = null;
+    }
+    if (handTracking.video) { handTracking.video.remove(); handTracking.video = null; }
     clearHover();
-    cursorEl.classList.remove('visible', 'curl');
+    cursorEl.classList.remove('visible', 'fist');
     toggleBtn.classList.remove('active');
     setSwipeProgress(null, 0);
+    window.updateHint();
   }
 
   function loop() {
-    if (!ht.active) return;
-    const v = ht.video;
-    if (v?.readyState >= 2 && v.currentTime !== ht.lastVideoTime) {
-      ht.lastVideoTime = v.currentTime;
-      process(ht.landmarker.detectForVideo(v, performance.now()));
+    if (!handTracking.active) return;
+    const v = handTracking.video;
+    if (v && v.readyState >= 2 && v.currentTime !== handTracking.lastVideoTime) {
+      handTracking.lastVideoTime = v.currentTime;
+      const res = handTracking.landmarker.detectForVideo(v, performance.now());
+      process(res);
     }
-    ht.rafId = requestAnimationFrame(loop);
+    handTracking.rafId = requestAnimationFrame(loop);
   }
 
   function process(res) {
-    if (!res.landmarks?.length) {
-      ht.gesture.state = 'idle';
-      ht.swipe.history = [];
-      cursorEl.classList.remove('curl');
+    if (!res.landmarks || res.landmarks.length === 0) {
+      handTracking.gesture.state = 'idle';
+      handTracking.swipe.history = [];
+      cursorEl.classList.remove('fist');
       setSwipeProgress(null, 0);
       return;
     }
-    const lm = res.landmarks[0];
-    // palm center = middle finger MCP (9); mirror X for selfie view
-    const vx = Math.max(0, Math.min(1, 1 - lm[9].x)) * window.innerWidth;
-    const vy = Math.max(0, Math.min(1, lm[9].y)) * window.innerHeight;
 
-    // EMA smoothing
-    const a = 0.35;
-    if (!ht.palm.has) { ht.palm.x = vx; ht.palm.y = vy; ht.palm.has = true; }
-    else { ht.palm.x += (vx - ht.palm.x) * a; ht.palm.y += (vy - ht.palm.y) * a; }
-    const { x: px, y: py } = ht.palm;
+    const lm = res.landmarks[0];
+    const palm = lm[9];
+    // 셀카 모드라 X축 미러링
+    const nx = 1 - palm.x;
+    const ny = palm.y;
+    const vx = Math.max(0, Math.min(1, nx)) * window.innerWidth;
+    const vy = Math.max(0, Math.min(1, ny)) * window.innerHeight;
+
+    // EMA 스무딩 (떨림 방지)
+    const alpha = 0.35;
+    if (!handTracking.palm.hasLast) {
+      handTracking.palm.x = vx; handTracking.palm.y = vy;
+      handTracking.palm.hasLast = true;
+    } else {
+      handTracking.palm.x += (vx - handTracking.palm.x) * alpha;
+      handTracking.palm.y += (vy - handTracking.palm.y) * alpha;
+    }
+    const px = handTracking.palm.x;
+    const py = handTracking.palm.y;
 
     cursorEl.style.left = px + 'px';
     cursorEl.style.top  = py + 'px';
+
     updateHover(px, py);
 
-    const bent = is4Curled(lm);
-    const open = isOpen(lm);
-    cursorEl.classList.toggle('curl', bent);
+    const fist = isFist(lm);
+    const open = isOpenPalm(lm);
+    cursorEl.classList.toggle('fist', fist);
 
-    const screenId = document.querySelector('.screen.active')?.id;
+    const active = document.querySelector('.screen.active');
+    const screenId = active ? active.id : null;
 
     if (screenId === 'screen-question') {
       handleSwipe(px, py, open);
-      handleCurlExtend(lm, bent, open, /*allowClick=*/false);
+      handTracking.gesture.state = 'idle';
     } else {
-      handleCurlExtend(lm, bent, open, /*allowClick=*/true);
-      ht.swipe.history = [];
+      handleClickGesture(fist, open);
+      handTracking.swipe.history = [];
       setSwipeProgress(null, 0);
     }
   }
 
   function updateHover(x, y) {
     const el = document.elementFromPoint(x, y);
-    const target = el?.closest('.btn-start, .q-option, .btn-action, .btn-retry, .ht-toggle') || null;
-    if (target !== ht.hover) {
-      ht.hover?.classList.remove('hand-hover');
-      target?.classList.add('hand-hover');
-      ht.hover = target;
-      ht.swipe.history = [];
-      ht.swipe.locked = null;
+    const sel = '.btn-start, .q-option, .btn-action, .btn-retry, .ht-toggle';
+    const target = el ? el.closest(sel) : null;
+
+    if (target !== handTracking.hoverEl) {
+      if (handTracking.hoverEl) handTracking.hoverEl.classList.remove('hand-hover');
+      if (target) target.classList.add('hand-hover');
+      handTracking.hoverEl = target;
+      handTracking.swipe.history = [];
+      handTracking.swipe.lockedOption = null;
       setSwipeProgress(null, 0);
     }
   }
 
   function clearHover() {
-    ht.hover?.classList.remove('hand-hover');
-    ht.hover = null;
+    if (handTracking.hoverEl) {
+      handTracking.hoverEl.classList.remove('hand-hover');
+      handTracking.hoverEl = null;
+    }
   }
 
-  // fist → open = click ; 4-finger curl (thumb out) → open = scroll
-  function handleCurlExtend(lm, bent, open, allowClick) {
-    const g = ht.gesture;
+  // 홈/결과 화면: 주먹 → 활짝 펴기 = 클릭
+  function handleClickGesture(fist, open) {
+    const g = handTracking.gesture;
     const now = performance.now();
-
     if (g.state === 'idle') {
-      if (bent) {
-        g.state = 'curled';
-        g.type = thumbTucked(lm) ? 'fist' : 'partial';
-        g.startTime = now;
-      }
-    } else if (g.state === 'curled') {
+      if (fist) { g.state = 'fist'; g.fistTime = now; }
+    } else if (g.state === 'fist') {
       if (open) {
-        const elapsed = now - g.startTime;
-        if (elapsed >= 80 && elapsed <= 2000) {
-          if (g.type === 'fist' && allowClick) ht.hover?.click();
-          else if (g.type === 'partial') window.scrollBy({ top: 140, behavior: 'smooth' });
+        const elapsed = now - g.fistTime;
+        if (elapsed >= 80 && elapsed <= 2000 && handTracking.hoverEl) {
+          handTracking.hoverEl.click();
         }
         g.state = 'idle';
-      } else if (now - g.startTime > 2500) {
+      } else if (now - g.fistTime > 2500) {
         g.state = 'idle';
       }
     }
   }
 
+  // 문제 화면: 보기 위에서 오른쪽으로 스와이프 = 선택
   function handleSwipe(x, y, openPalm) {
-    const sw = ht.swipe;
+    const sw = handTracking.swipe;
     const now = performance.now();
-    if (now < sw.cooldown) return;
+    if (now < sw.cooldownUntil) return;
 
-    const overOption = ht.hover?.classList.contains('q-option');
+    const hovered = handTracking.hoverEl;
+    const overOption = hovered && hovered.classList.contains('q-option');
+
     if (!openPalm || !overOption) {
-      sw.history = []; sw.locked = null; setSwipeProgress(null, 0);
+      sw.history = [];
+      sw.lockedOption = null;
+      setSwipeProgress(null, 0);
       return;
     }
-    if (!sw.locked) sw.locked = ht.hover;
+
+    if (!sw.lockedOption) sw.lockedOption = hovered;
 
     sw.history.push({ x, y, t: now });
     sw.history = sw.history.filter(p => now - p.t < 600);
     if (sw.history.length < 3) return;
 
     const first = sw.history[0];
-    const last = sw.history[sw.history.length - 1];
-    const dx = last.x - first.x, dy = Math.abs(last.y - first.y), dt = last.t - first.t;
+    const last  = sw.history[sw.history.length - 1];
+    const dx = last.x - first.x;
+    const dy = Math.abs(last.y - first.y);
+    const dt = last.t - first.t;
+
     const SWIPE_PX = Math.min(220, window.innerWidth * 0.35);
-    setSwipeProgress(sw.locked, Math.max(0, Math.min(1, dx / SWIPE_PX)));
+    const progress = Math.max(0, Math.min(1, dx / SWIPE_PX));
+    setSwipeProgress(sw.lockedOption, progress);
 
     if (dx >= SWIPE_PX && dy < dx * 0.6 && dt < 900) {
-      const target = sw.locked;
-      sw.history = []; sw.locked = null;
-      sw.cooldown = now + 700;
+      const target = sw.lockedOption;
+      sw.history = [];
+      sw.lockedOption = null;
+      sw.cooldownUntil = now + 700;
       setSwipeProgress(null, 0);
-      target?.click();
+      if (target) target.click();
     }
   }
 
@@ -706,8 +789,28 @@
     document.querySelectorAll('.q-option').forEach(o => {
       if (o !== el) o.style.setProperty('--swipe-progress', '0%');
     });
-    el?.style.setProperty('--swipe-progress', (p * 100) + '%');
+    if (el) el.style.setProperty('--swipe-progress', (p * 100) + '%');
   }
+
+  // 화면 전환 시 상태 리셋
+  const observer = new MutationObserver(() => {
+    handTracking.gesture.state = 'idle';
+    handTracking.swipe.history = [];
+    handTracking.swipe.lockedOption = null;
+    setSwipeProgress(null, 0);
+    clearHover();
+  });
+  document.querySelectorAll('.screen').forEach(s => {
+    observer.observe(s, { attributes: true, attributeFilter: ['class'] });
+  });
+
+  // showToast / updateHint 전역 노출
+  window.showToast = window.showToast || function(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+  };
+  window.updateHint = window.updateHint || function() {};
 </script>
 
 </body>
