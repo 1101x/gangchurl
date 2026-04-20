@@ -16,15 +16,8 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html, body {
-    overscroll-behavior: none;
-  }
-
-  html {
-    background-color: #0a0a0a;
-    min-height: 100%;
-  }
+  html, body { overscroll-behavior: none; }
+  html { background-color: #0a0a0a; min-height: 100%; }
 
   body {
     background-color: #0a0a0a;
@@ -37,28 +30,13 @@
     color: var(--ink);
     font-family: 'Noto Serif KR', 'Cormorant Garamond', serif;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow-x: hidden;
-    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow-x: hidden; position: relative;
   }
 
-  .app {
-    width: 100%;
-    max-width: 520px;
-    padding: 40px 28px;
-    position: relative;
-    z-index: 2;
-  }
-
-  .screen {
-    display: none;
-    animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-
+  .app { width: 100%; max-width: 520px; padding: 40px 28px; position: relative; z-index: 2; }
+  .screen { display: none; animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
   .screen.active { display: block; }
-
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
@@ -66,330 +44,197 @@
 
   /* ===== INTRO ===== */
   .intro { text-align: center; padding: 60px 0; }
-
-  .intro-mark {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 48px;
-    opacity: 0.9;
-  }
-
+  .intro-mark { width: 60px; height: 60px; margin: 0 auto 48px; opacity: 0.9; }
   .intro-overline {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 14px;
-    letter-spacing: 0.3em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 24px;
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 14px; letter-spacing: 0.3em; color: var(--accent);
+    text-transform: uppercase; margin-bottom: 24px;
   }
-
   .intro-title {
-    font-family: 'Noto Serif KR', serif;
-    font-weight: 300;
-    font-size: 38px;
-    line-height: 1.3;
-    margin-bottom: 20px;
-    letter-spacing: -0.01em;
+    font-family: 'Noto Serif KR', serif; font-weight: 300;
+    font-size: 38px; line-height: 1.3; margin-bottom: 20px; letter-spacing: -0.01em;
   }
-
   .intro-title .em {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 400;
-    color: var(--accent);
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-weight: 400; color: var(--accent);
   }
-
   .intro-desc {
-    font-size: 14px;
-    line-height: 1.9;
-    color: var(--ink-dim);
-    margin-bottom: 56px;
-    max-width: 340px;
-    margin-left: auto;
-    margin-right: auto;
+    font-size: 14px; line-height: 1.9; color: var(--ink-dim);
+    margin-bottom: 56px; max-width: 340px; margin-left: auto; margin-right: auto;
   }
-
   .btn-start {
-    background: transparent;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 16px;
-    letter-spacing: 0.2em;
-    padding: 16px 48px;
-    cursor: pointer;
+    background: transparent; border: 1px solid var(--accent); color: var(--accent);
+    font-family: 'Cormorant Garamond', serif; font-size: 16px; letter-spacing: 0.2em;
+    padding: 16px 48px; cursor: pointer;
     transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-    position: relative;
-    text-transform: uppercase;
+    position: relative; text-transform: uppercase;
   }
-
-  .btn-start:hover {
-    background: var(--accent);
-    color: var(--bg);
-    letter-spacing: 0.3em;
+  .btn-start:hover, .btn-start.hand-hover {
+    background: var(--accent); color: var(--bg); letter-spacing: 0.3em;
   }
-
   .intro-footer {
-    margin-top: 80px;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 13px;
-    color: var(--ink-dim);
-    opacity: 0.6;
+    margin-top: 80px; font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 13px; color: var(--ink-dim); opacity: 0.6;
   }
 
   /* ===== QUESTION ===== */
   .q-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 48px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 48px; padding-bottom: 20px; border-bottom: 1px solid var(--line);
   }
-
   .q-number {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 14px;
-    color: var(--accent);
-    letter-spacing: 0.2em;
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 14px; color: var(--accent); letter-spacing: 0.2em;
   }
-
-  .q-progress {
-    display: flex;
-    gap: 6px;
-  }
-
-  .q-dot {
-    width: 20px;
-    height: 1px;
-    background: var(--line);
-    transition: background 0.4s;
-  }
-
+  .q-progress { display: flex; gap: 6px; }
+  .q-dot { width: 20px; height: 1px; background: var(--line); transition: background 0.4s; }
   .q-dot.filled { background: var(--accent); }
-
   .q-title {
-    font-family: 'Noto Serif KR', serif;
-    font-weight: 400;
-    font-size: 22px;
-    line-height: 1.55;
-    margin-bottom: 40px;
-    letter-spacing: -0.005em;
+    font-family: 'Noto Serif KR', serif; font-weight: 400;
+    font-size: 22px; line-height: 1.55; margin-bottom: 40px; letter-spacing: -0.005em;
   }
-
-  .q-options {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
+  .q-options { display: flex; flex-direction: column; gap: 2px; }
   .q-option {
-    background: transparent;
-    border: none;
-    border-top: 1px solid var(--line);
-    color: var(--ink);
-    font-family: 'Noto Serif KR', serif;
-    font-size: 15px;
-    text-align: left;
-    padding: 20px 4px 20px 48px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    line-height: 1.55;
-    position: relative;
-    display: block;
-    width: 100%;
+    background: transparent; border: none; border-top: 1px solid var(--line);
+    color: var(--ink); font-family: 'Noto Serif KR', serif; font-size: 15px;
+    text-align: left; padding: 20px 4px 20px 48px; cursor: pointer;
+    transition: all 0.3s ease; line-height: 1.55;
+    position: relative; display: block; width: 100%;
   }
-
   .q-option:last-child { border-bottom: 1px solid var(--line); }
-
   .q-option .q-num-tag {
-    position: absolute;
-    left: 4px;
-    top: 22px;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 13px;
-    color: var(--ink-dim);
-    transition: color 0.3s;
-    letter-spacing: 0.05em;
+    position: absolute; left: 4px; top: 22px;
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 13px; color: var(--ink-dim);
+    transition: color 0.3s; letter-spacing: 0.05em;
   }
-
-  .q-option:hover {
-    color: var(--accent);
-    padding-left: 56px;
+  .q-option:hover, .q-option.hand-hover {
+    color: var(--accent); padding-left: 56px;
   }
-
-  .q-option:hover  {
-    color: var(--accent);
+  /* 스와이프 진행 상태 바 */
+  .q-option.hand-hover::after {
+    content: ''; position: absolute; left: 0; bottom: 0; height: 1px;
+    background: var(--accent); width: var(--swipe-progress, 0%);
+    transition: width 0.08s linear;
   }
-/*
-  .q-option:hover .q-num-tag {
-    color: var(--accent);
-  }*/
-  
 
   /* ===== RESULT ===== */
-  .result {
-    text-align: center;
-    padding: 40px 0;
-  }
-
+  .result { text-align: center; padding: 40px 0; }
   .result-overline {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 13px;
-    letter-spacing: 0.35em;
-    color: var(--ink-dim);
-    text-transform: uppercase;
-    margin-bottom: 12px;
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 13px; letter-spacing: 0.35em; color: var(--ink-dim);
+    text-transform: uppercase; margin-bottom: 12px;
   }
-
   .result-label {
-    font-family: 'Noto Serif KR', serif;
-    font-weight: 300;
-    font-size: 16px;
-    color: var(--ink-dim);
-    margin-bottom: 32px;
+    font-family: 'Noto Serif KR', serif; font-weight: 300;
+    font-size: 16px; color: var(--ink-dim); margin-bottom: 32px;
   }
-
   .result-illustration {
-    width: 100%;
-    max-width: 360px;
-    margin: 0 auto 32px;
-    aspect-ratio: 16/9;
-    position: relative;
-    overflow: hidden;
+    width: 100%; max-width: 360px; margin: 0 auto 32px;
+    aspect-ratio: 16/9; position: relative; overflow: hidden;
     border: 1px solid var(--line);
   }
-
-  .result-illustration img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
+  .result-illustration img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .result-illustration::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    box-shadow: inset 0 0 40px rgba(10, 10, 10, 0.6);
-    pointer-events: none;
+    content: ''; position: absolute; inset: 0;
+    box-shadow: inset 0 0 40px rgba(10, 10, 10, 0.6); pointer-events: none;
   }
-
   .result-name-en {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 18px;
-    letter-spacing: 0.3em;
-    color: var(--accent);
-    margin-bottom: 8px;
-    text-transform: uppercase;
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 18px; letter-spacing: 0.3em; color: var(--accent);
+    margin-bottom: 8px; text-transform: uppercase;
   }
-
   .result-name-ko {
-    font-family: 'Noto Serif KR', serif;
-    font-weight: 500;
-    font-size: 32px;
-    letter-spacing: -0.01em;
-    margin-bottom: 32px;
+    font-family: 'Noto Serif KR', serif; font-weight: 500;
+    font-size: 32px; letter-spacing: -0.01em; margin-bottom: 32px;
   }
-
   .result-desc {
-    font-size: 14px;
-    line-height: 1.95;
-    color: var(--ink-dim);
-    max-width: 400px;
-    margin: 0 auto 48px;
-    text-align: left;
-    padding: 24px;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
+    font-size: 14px; line-height: 1.95; color: var(--ink-dim);
+    max-width: 400px; margin: 0 auto 48px; text-align: left; padding: 24px;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
   }
-
   .result-quote {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 16px;
-    color: var(--accent);
-    text-align: center;
-    margin-bottom: 20px;
-    line-height: 1.6;
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 16px; color: var(--accent); text-align: center;
+    margin-bottom: 20px; line-height: 1.6;
   }
-
   .result-actions {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    max-width: 360px;
-    margin: 0 auto;
+    display: flex; gap: 12px; justify-content: center;
+    max-width: 360px; margin: 0 auto;
   }
-
-  #capture-target {
-    padding: 32px 24px 36px;
-  }
-
+  #capture-target { padding: 32px 24px 36px; }
   .btn-action {
-    flex: 1;
-    background: transparent;
-    border: 1px solid var(--line);
-    color: var(--ink);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 13px;
-    letter-spacing: 0.2em;
-    padding: 14px 0;
-    cursor: pointer;
-    transition: all 0.3s;
-    text-transform: uppercase;
-    text-align: center;
+    flex: 1; background: transparent; border: 1px solid var(--line); color: var(--ink);
+    font-family: 'Cormorant Garamond', serif; font-size: 13px;
+    letter-spacing: 0.2em; padding: 14px 0; cursor: pointer;
+    transition: all 0.3s; text-transform: uppercase; text-align: center;
   }
-
-  .btn-action:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+  .btn-action:hover, .btn-action.hand-hover {
+    border-color: var(--accent); color: var(--accent);
   }
-
   .btn-retry {
-    display: block;
-    margin: 32px auto 0;
-    background: none;
-    border: none;
-    color: var(--ink-dim);
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 13px;
-    cursor: pointer;
-    letter-spacing: 0.15em;
-    padding: 8px 16px;
-    transition: color 0.3s;
+    display: block; margin: 32px auto 0;
+    background: none; border: none; color: var(--ink-dim);
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 13px; cursor: pointer; letter-spacing: 0.15em;
+    padding: 8px 16px; transition: color 0.3s;
   }
-
-  .btn-retry:hover { color: var(--accent); }
+  .btn-retry:hover, .btn-retry.hand-hover { color: var(--accent); }
 
   .toast {
-    position: fixed;
-    bottom: 32px;
-    left: 50%;
+    position: fixed; bottom: 32px; left: 50%;
     transform: translateX(-50%) translateY(20px);
-    background: var(--ink);
-    color: var(--bg);
-    padding: 12px 24px;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 14px;
-    letter-spacing: 0.1em;
-    opacity: 0;
-    transition: all 0.4s;
-    pointer-events: none;
-    z-index: 10;
+    background: var(--ink); color: var(--bg);
+    padding: 12px 24px; font-family: 'Cormorant Garamond', serif;
+    font-size: 14px; letter-spacing: 0.1em;
+    opacity: 0; transition: all 0.4s; pointer-events: none; z-index: 30;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ===== HAND TRACKING UI ===== */
+  .ht-toggle {
+    position: fixed; top: 20px; right: 20px;
+    width: 42px; height: 42px;
+    border: 1px solid var(--line); background: rgba(10, 10, 10, 0.7);
+    color: var(--ink-dim); cursor: pointer; z-index: 20;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  }
+  .ht-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  .ht-toggle.active {
+    border-color: var(--accent); color: var(--accent);
+    box-shadow: 0 0 12px rgba(201, 169, 97, 0.3);
+  }
+  .ht-toggle.loading { opacity: 0.6; pointer-events: none; }
+  .ht-toggle svg { width: 18px; height: 18px; }
+
+  .ht-cursor {
+    position: fixed; width: 32px; height: 32px; border-radius: 50%;
+    border: 1.5px solid var(--accent); background: rgba(201, 169, 97, 0.12);
+    box-shadow: 0 0 18px rgba(201, 169, 97, 0.4);
+    pointer-events: none; z-index: 50;
+    transform: translate(-50%, -50%);
+    transition: width 0.15s, height 0.15s, background 0.15s, border-color 0.15s;
+    display: none; left: 0; top: 0;
+    will-change: transform, left, top;
+  }
+  .ht-cursor.visible { display: block; }
+  .ht-cursor.fist {
+    width: 20px; height: 20px;
+    background: rgba(201, 169, 97, 0.5); border-color: #fff;
   }
 
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
+  .ht-hint {
+    position: fixed; bottom: 18px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 11px; letter-spacing: 0.25em;
+    color: var(--ink-dim); text-transform: uppercase;
+    opacity: 0; transition: opacity 0.5s; pointer-events: none;
+    z-index: 15; white-space: nowrap; text-align: center;
   }
+  .ht-hint.visible { opacity: 0.7; }
 
   @media (max-width: 480px) {
     .intro-title { font-size: 30px; }
@@ -411,19 +256,14 @@
         <path d="M30 58 L10 10 L50 10 Z" stroke="#c9a961" stroke-width="0.5" fill="none"/>
         <circle cx="30" cy="30" r="3" fill="#c9a961"/>
       </svg>
-
       <div class="intro-overline">Seven Deadly Sins</div>
-      <h1 class="intro-title">
-        당신 안의<br><span class="em">Homunculus</span>
-      </h1>
+      <h1 class="intro-title">당신 안의<br><span class="em">Homunculus</span></h1>
       <p class="intro-desc">
         다섯 개의 질문으로<br>
         지금 마음을 지배하는<br>
         칠대 죄악 중 하나를 찾습니다.
       </p>
-
       <button class="btn-start" onclick="startTest()">시작하기</button>
-
       <div class="intro-footer">강철의 연금술사 헌정</div>
     </div>
   </section>
@@ -444,37 +284,44 @@
       <div id="capture-target">
         <div class="result-overline">Your Sin</div>
         <div class="result-label">당신의 호문쿨루스는</div>
-
         <div class="result-illustration" id="result-illust"></div>
-
         <div class="result-name-en" id="result-en"></div>
         <div class="result-name-ko" id="result-ko"></div>
-
         <div class="result-desc" id="result-desc">
           <div class="result-quote" id="result-quote"></div>
           <div id="result-body"></div>
         </div>
       </div>
-
       <div class="result-actions">
         <button class="btn-action" onclick="shareResult()">공유하기</button>
         <button class="btn-action" onclick="saveResult()">저장하기</button>
       </div>
-
       <button class="btn-retry" onclick="goHome()">처음으로</button>
     </div>
   </section>
 </div>
+
+<!-- Hand tracking UI -->
+<button class="ht-toggle" id="ht-toggle" title="손 제스처 제어 켜기/끄기" aria-label="hand tracking toggle">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 11V6a1.5 1.5 0 0 1 3 0v5"/>
+    <path d="M10 11V4.5a1.5 1.5 0 0 1 3 0V11"/>
+    <path d="M13 11V5.5a1.5 1.5 0 0 1 3 0V11"/>
+    <path d="M16 11V7.5a1.5 1.5 0 0 1 3 0V16a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6v-3.5a1.5 1.5 0 0 1 3 0V13"/>
+  </svg>
+</button>
+
+<div class="ht-cursor" id="ht-cursor"></div>
+<div class="ht-hint" id="ht-hint"></div>
 
 <div class="toast" id="toast">복사되었습니다</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script>
-  // ===== DATA =====
+  // ===== DATA (원본과 동일) =====
   const questions = [
-    {
-      q: "요즘 잠들기 전, 머릿속에 가장 자주 떠오르는 것은?",
+    { q: "요즘 잠들기 전, 머릿속에 가장 자주 떠오르는 것은?",
       options: [
         { text: "내가 이룬 것들. 내가 더 나은 사람이라는 생각", sin: "pride" },
         { text: "갖고 싶은 것들, 더 많이 벌고 싶다는 계산", sin: "greed" },
@@ -483,10 +330,8 @@
         { text: "누군가에 대한 갈망, 닿고 싶은 사람", sin: "lust" },
         { text: "뭘 먹고 싶다, 뭘 더 하고 싶다", sin: "gluttony" },
         { text: "나보다 잘 나가는 사람들", sin: "envy" }
-      ]
-    },
-    {
-      q: "SNS를 볼 때 가장 자주 드는 감정은?",
+      ]},
+    { q: "SNS를 볼 때 가장 자주 드는 감정은?",
       options: [
         { text: "내가 저 사람보다 낫다", sin: "pride" },
         { text: "저거 나도 가져야겠다", sin: "greed" },
@@ -495,10 +340,8 @@
         { text: "특정 누군가에게 자꾸 눈이 간다", sin: "lust" },
         { text: "더 보고 싶고 멈출 수 없다", sin: "gluttony" },
         { text: "왜 저 사람은 되고 나는 안 되지", sin: "envy" }
-      ]
-    },
-    {
-      q: "최근, 누군가에게 말하지 못한 진짜 속마음이 있다면?",
+      ]},
+    { q: "최근, 누군가에게 말하지 못한 진짜 속마음이 있다면?",
       options: [
         { text: "사실 내가 더 잘해", sin: "pride" },
         { text: "저거 내 거였어야 해", sin: "greed" },
@@ -507,10 +350,8 @@
         { text: "계속 생각나", sin: "lust" },
         { text: "이걸로는 부족해", sin: "gluttony" },
         { text: "왜 쟤만 돼?", sin: "envy" }
-      ]
-    },
-    {
-      q: "지금 가장 피하고 싶은 상황은?",
+      ]},
+    { q: "지금 가장 피하고 싶은 상황은?",
       options: [
         { text: "내가 틀렸다고 인정해야 하는 순간", sin: "pride" },
         { text: "가진 것을 잃는 것", sin: "greed" },
@@ -519,10 +360,8 @@
         { text: "그 사람이 나를 모른 척하는 것", sin: "lust" },
         { text: "멈춰야 하는 것", sin: "gluttony" },
         { text: "나보다 잘 된 사람의 소식을 듣는 것", sin: "envy" }
-      ]
-    },
-    {
-      q: "당신에게 힘이 하나 주어진다면, 무엇을 택하시겠습니까?",
+      ]},
+    { q: "당신에게 힘이 하나 주어진다면, 무엇을 택하시겠습니까?",
       options: [
         { text: "누구도 나를 넘볼 수 없는 완벽함", sin: "pride" },
         { text: "원하는 건 뭐든 가질 수 있는 힘", sin: "greed" },
@@ -531,60 +370,31 @@
         { text: "원하는 사람의 마음을 얻는 것", sin: "lust" },
         { text: "아무리 채워도 배부르지 않는 몸", sin: "gluttony" },
         { text: "다른 이가 가진 걸 내 것으로 만드는 힘", sin: "envy" }
-      ]
-    }
+      ]}
   ];
 
   const homunculi = {
-    pride: {
-      en: "Pride",
-      ko: "프라이드",
-      quote: "I am above all others.",
+    pride:    { en: "Pride", ko: "프라이드", quote: "I am above all others.",
       desc: "당신은 지금 '나는 더 낫다'는 감각으로 세상을 버티고 있습니다. 그 자부심은 당신을 지켜주는 갑옷이지만, 그 안에서 당신은 종종 외롭습니다. 누구에게도 약한 모습을 보이지 못하니까요.",
-      image: "images/pride.jpeg"
-    },
-    greed: {
-      en: "Greed",
-      ko: "그리드",
-      quote: "I want everything.",
+      image: "images/pride.jpeg" },
+    greed:    { en: "Greed", ko: "그리드", quote: "I want everything.",
       desc: "당신은 지금 '더 가지고 싶다'는 열망으로 움직이고 있습니다. 그 욕망은 당신을 전진시키는 엔진이지만, 손에 넣어도 곧 허기가 돌아옵니다. 채움보다 다음이 더 궁금한 상태입니다.",
-      image: "images/greed.jpeg"
-    },
-    wrath: {
-      en: "Wrath",
-      ko: "래스",
-      quote: "I will break you.",
+      image: "images/greed.jpeg" },
+    wrath:    { en: "Wrath", ko: "래스", quote: "I will break you.",
       desc: "당신은 지금 분노 안에 있습니다. 누군가가, 혹은 무언가가 당신을 반복해서 건드리고 있고, 당신은 그것을 쉽게 놓지 못합니다. 분노는 당신의 칼이지만, 자주 당신 자신을 먼저 벱니다.",
-      image: "images/wrath.jpeg"
-    },
-    sloth: {
-      en: "Sloth",
-      ko: "슬로스",
-      quote: "Leave me alone.",
+      image: "images/wrath.jpeg" },
+    sloth:    { en: "Sloth", ko: "슬로스", quote: "Leave me alone.",
       desc: "당신은 지금 많이 지쳐있습니다. 움직이고 싶지 않고, 시작하고 싶지 않고, 결정하고 싶지 않습니다. 이것은 게으름이 아니라 당신이 너무 오래 힘들었다는 신호입니다.",
-      image: "images/sloth.jpeg"
-    },
-    lust: {
-      en: "Lust",
-      ko: "러스트",
-      quote: "Come closer.",
+      image: "images/sloth.jpeg" },
+    lust:     { en: "Lust", ko: "러스트", quote: "Come closer.",
       desc: "당신은 지금 누군가에게, 혹은 어떤 상태에 깊이 끌리고 있습니다. 단순한 욕망이 아니라 닿고 싶음, 녹아들고 싶음에 가깝습니다. 그 갈망은 당신을 살아있게 하지만, 동시에 당신을 흔듭니다.",
-      image: "images/lust.jpeg"
-    },
-    gluttony: {
-      en: "Gluttony",
-      ko: "글러트니",
-      quote: "More. I need more.",
+      image: "images/lust.jpeg" },
+    gluttony: { en: "Gluttony", ko: "글러트니", quote: "More. I need more.",
       desc: "당신은 지금 채워도 채워도 부족한 상태입니다. 음식이든, 정보든, 관계든, 소비든 — 무언가를 계속 입력하지만 배가 차지 않습니다. 진짜 배고픈 것이 무엇인지 스스로도 잘 모릅니다.",
-      image: "images/gluttony.jpeg"
-    },
-    envy: {
-      en: "Envy",
-      ko: "엔비",
-      quote: "Why them, not me?",
+      image: "images/gluttony.jpeg" },
+    envy:     { en: "Envy", ko: "엔비", quote: "Why them, not me?",
       desc: "당신은 지금 질투 안에 있습니다. 남이 가진 것을 보면 나에게 없는 것이 먼저 보이고, 그들의 행복이 곧 나의 결핍처럼 느껴집니다. 이 감정은 사실 '나도 저렇게 되고 싶다'는 간절함의 다른 얼굴입니다. 당신을 괴롭히는 만큼, 당신이 무엇을 진짜 원하는지도 가르쳐줍니다.",
-      image: "images/envy.jpeg"
-    }
+      image: "images/envy.jpeg" }
   };
 
   // ===== STATE =====
@@ -592,11 +402,11 @@
   let scores = { pride: 0, greed: 0, wrath: 0, sloth: 0, lust: 0, gluttony: 0, envy: 0 };
   let answers = [];
 
-  // ===== SCREEN CONTROL =====
   function showScreen(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     window.scrollTo(0, 0);
+    updateHint();
   }
 
   function startTest() {
@@ -613,7 +423,6 @@
     document.getElementById('q-num').textContent = `${romans[currentQ]}. of V.`;
     document.getElementById('q-title').textContent = q.q;
 
-    // progress dots
     const progress = document.getElementById('q-progress');
     progress.innerHTML = '';
     for (let i = 0; i < questions.length; i++) {
@@ -622,14 +431,12 @@
       progress.appendChild(dot);
     }
 
-    // shuffle options (Fisher-Yates) — fresh order every render
     const shuffled = [...q.options];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
 
-    // render options with numbers
     const opts = document.getElementById('q-options');
     opts.innerHTML = '';
     shuffled.forEach((opt, i) => {
@@ -639,6 +446,7 @@
       btn.innerHTML = `<span class="q-num-tag">${num}</span>${opt.text}`;
       btn.style.animationDelay = (0.05 * i) + 's';
       btn.onclick = () => selectOption(opt.sin);
+      btn.dataset.sin = opt.sin;
       opts.appendChild(btn);
     });
   }
@@ -646,31 +454,25 @@
   function selectOption(sin) {
     scores[sin] += 1;
     answers.push(sin);
-
     if (currentQ < questions.length - 1) {
       currentQ++;
       renderQuestion();
-      // re-trigger animation
       const screen = document.getElementById('screen-question');
       screen.style.animation = 'none';
       void screen.offsetWidth;
       screen.style.animation = '';
+      updateHint();
     } else {
       showResult();
     }
   }
 
   function showResult() {
-    // determine winner — tie-break uses last answer (Q5 weight)
     let max = 0;
-    let winner = answers[answers.length - 1]; // default to last answer
+    let winner = answers[answers.length - 1];
     for (const [sin, score] of Object.entries(scores)) {
-      if (score > max) {
-        max = score;
-        winner = sin;
-      }
+      if (score > max) { max = score; winner = sin; }
     }
-    // if last answer is also max, prefer it (tie-break rule)
     const lastSin = answers[answers.length - 1];
     if (scores[lastSin] === max) winner = lastSin;
 
@@ -680,33 +482,18 @@
     document.getElementById('result-quote').textContent = `" ${h.quote} "`;
     document.getElementById('result-body').textContent = h.desc;
     document.getElementById('result-illust').innerHTML = `<img src="${h.image}" alt="${h.en}">`;
-
     showScreen('screen-result');
   }
 
-  function retry() {
-    startTest();
-  }
+  function goHome() { showScreen('screen-intro'); }
 
-  function goHome() {
-    showScreen('screen-intro');
-  }
-
-  // ===== SHARE & SAVE =====
   function shareResult() {
     const ko = document.getElementById('result-ko').textContent;
     const url = window.location.href;
-    const shareData = {
-      title: '호문쿨루스 테스트',
-      text: `나의 호문쿨루스는 ${ko}`,
-      url: url
-    };
-
-    // mobile: native share sheet
+    const shareData = { title: '호문쿨루스 테스트', text: `나의 호문쿨루스는 ${ko}`, url };
     if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
       navigator.share(shareData).catch(() => {});
     } else {
-      // desktop fallback: copy link
       navigator.clipboard.writeText(url).then(
         () => showToast('링크가 복사되었습니다'),
         () => showToast('복사에 실패했습니다')
@@ -717,45 +504,24 @@
   async function saveResult() {
     const target = document.getElementById('capture-target');
     const en = document.getElementById('result-en').textContent;
-
-    // wait for image to fully load first
     const img = target.querySelector('img');
     if (img && !img.complete) {
-      await new Promise(resolve => {
-        img.onload = resolve;
-        img.onerror = resolve;
-      });
+      await new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
     }
-
     showToast('이미지 생성 중...');
-
-    // give the toast a moment to render, then capture
     setTimeout(() => {
-      html2canvas(target, {
-        backgroundColor: '#0a0a0a',
-        scale: 2,
-        useCORS: true,
-        logging: false
-      }).then(canvas => {
-        canvas.toBlob(blob => {
-          if (!blob) {
-            showToast('저장에 실패했습니다');
-            return;
-          }
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `homunculus-${en.toLowerCase()}.png`;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-          showToast('이미지가 저장되었습니다');
-        }, 'image/png');
-      }).catch(err => {
-        console.error(err);
-        showToast('저장에 실패했습니다');
-      });
+      html2canvas(target, { backgroundColor: '#0a0a0a', scale: 2, useCORS: true, logging: false })
+        .then(canvas => {
+          canvas.toBlob(blob => {
+            if (!blob) { showToast('저장에 실패했습니다'); return; }
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = `homunculus-${en.toLowerCase()}.png`;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('이미지가 저장되었습니다');
+          }, 'image/png');
+        }).catch(err => { console.error(err); showToast('저장에 실패했습니다'); });
     }, 100);
   }
 
@@ -765,6 +531,286 @@
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2000);
   }
+
+  function updateHint() {
+    const hint = document.getElementById('ht-hint');
+    if (!window.handTracking || !window.handTracking.active) { hint.classList.remove('visible'); return; }
+    const active = document.querySelector('.screen.active');
+    if (!active) return;
+    if (active.id === 'screen-question') {
+      hint.textContent = 'Swipe right across an option to select';
+    } else {
+      hint.textContent = 'Fist → Open palm to click';
+    }
+    hint.classList.add('visible');
+  }
+</script>
+
+<!-- ===== MEDIAPIPE HAND TRACKING ===== -->
+<script type="module">
+  import { HandLandmarker, FilesetResolver }
+    from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.17/vision_bundle.mjs";
+
+  const handTracking = {
+    active: false, landmarker: null, video: null, stream: null,
+    lastVideoTime: -1,
+    palm: { x: 0, y: 0, hasLast: false },
+    gesture: { state: 'idle', fistTime: 0 },
+    swipe: { history: [], cooldownUntil: 0, lockedOption: null },
+    hoverEl: null, rafId: null
+  };
+  window.handTracking = handTracking;
+
+  const FINGERS = [
+    { tip: 8,  mcp: 5  }, { tip: 12, mcp: 9  },
+    { tip: 16, mcp: 13 }, { tip: 20, mcp: 17 }
+  ];
+  const dist2 = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+  const fingerCurled   = (lm, f) => dist2(lm[f.tip], lm[0]) < dist2(lm[f.mcp], lm[0]) * 1.15;
+  const fingerExtended = (lm, f) => dist2(lm[f.tip], lm[0]) > dist2(lm[f.mcp], lm[0]) * 1.5;
+  const isFist     = (lm) => { let c = 0; for (const f of FINGERS) if (fingerCurled(lm, f)) c++; return c >= 3; };
+  const isOpenPalm = (lm) => { let e = 0; for (const f of FINGERS) if (fingerExtended(lm, f)) e++; return e >= 4; };
+
+  const toggleBtn = document.getElementById('ht-toggle');
+  const cursorEl  = document.getElementById('ht-cursor');
+
+  toggleBtn.addEventListener('click', async () => {
+    if (handTracking.active) stopHandTracking();
+    else await startHandTracking();
+  });
+
+  async function startHandTracking() {
+    toggleBtn.classList.add('loading');
+    try {
+      if (!handTracking.landmarker) {
+        const vision = await FilesetResolver.forVisionTasks(
+          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.17/wasm"
+        );
+        handTracking.landmarker = await HandLandmarker.createFromOptions(vision, {
+          baseOptions: {
+            modelAssetPath: "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
+            delegate: "GPU"
+          },
+          runningMode: "VIDEO", numHands: 1,
+          minHandDetectionConfidence: 0.5,
+          minHandPresenceConfidence: 0.5,
+          minTrackingConfidence: 0.5
+        });
+      }
+
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { width: 640, height: 480, facingMode: 'user' }, audio: false
+      });
+      handTracking.stream = stream;
+
+      const video = document.createElement('video');
+      video.style.display = 'none';
+      video.playsInline = true; video.muted = true;
+      video.srcObject = stream;
+      document.body.appendChild(video);
+      handTracking.video = video;
+
+      await new Promise(res => { video.onloadedmetadata = () => { video.play().then(res); }; });
+
+      handTracking.active = true;
+      toggleBtn.classList.remove('loading');
+      toggleBtn.classList.add('active');
+      cursorEl.classList.add('visible');
+      window.updateHint();
+      loop();
+    } catch (err) {
+      console.error('Hand tracking init failed:', err);
+      toggleBtn.classList.remove('loading', 'active');
+      window.showToast && window.showToast('카메라를 사용할 수 없습니다');
+    }
+  }
+
+  function stopHandTracking() {
+    handTracking.active = false;
+    if (handTracking.rafId) cancelAnimationFrame(handTracking.rafId);
+    if (handTracking.stream) {
+      handTracking.stream.getTracks().forEach(t => t.stop());
+      handTracking.stream = null;
+    }
+    if (handTracking.video) { handTracking.video.remove(); handTracking.video = null; }
+    clearHover();
+    cursorEl.classList.remove('visible', 'fist');
+    toggleBtn.classList.remove('active');
+    setSwipeProgress(null, 0);
+    window.updateHint();
+  }
+
+  function loop() {
+    if (!handTracking.active) return;
+    const v = handTracking.video;
+    if (v && v.readyState >= 2 && v.currentTime !== handTracking.lastVideoTime) {
+      handTracking.lastVideoTime = v.currentTime;
+      const res = handTracking.landmarker.detectForVideo(v, performance.now());
+      process(res);
+    }
+    handTracking.rafId = requestAnimationFrame(loop);
+  }
+
+  function process(res) {
+    if (!res.landmarks || res.landmarks.length === 0) {
+      handTracking.gesture.state = 'idle';
+      handTracking.swipe.history = [];
+      cursorEl.classList.remove('fist');
+      setSwipeProgress(null, 0);
+      return;
+    }
+
+    const lm = res.landmarks[0];
+    const palm = lm[9];
+    // 셀카 모드라 X축 미러링
+    const nx = 1 - palm.x;
+    const ny = palm.y;
+    const vx = Math.max(0, Math.min(1, nx)) * window.innerWidth;
+    const vy = Math.max(0, Math.min(1, ny)) * window.innerHeight;
+
+    // EMA 스무딩 (떨림 방지)
+    const alpha = 0.35;
+    if (!handTracking.palm.hasLast) {
+      handTracking.palm.x = vx; handTracking.palm.y = vy;
+      handTracking.palm.hasLast = true;
+    } else {
+      handTracking.palm.x += (vx - handTracking.palm.x) * alpha;
+      handTracking.palm.y += (vy - handTracking.palm.y) * alpha;
+    }
+    const px = handTracking.palm.x;
+    const py = handTracking.palm.y;
+
+    cursorEl.style.left = px + 'px';
+    cursorEl.style.top  = py + 'px';
+
+    updateHover(px, py);
+
+    const fist = isFist(lm);
+    const open = isOpenPalm(lm);
+    cursorEl.classList.toggle('fist', fist);
+
+    const active = document.querySelector('.screen.active');
+    const screenId = active ? active.id : null;
+
+    if (screenId === 'screen-question') {
+      handleSwipe(px, py, open);
+      handTracking.gesture.state = 'idle';
+    } else {
+      handleClickGesture(fist, open);
+      handTracking.swipe.history = [];
+      setSwipeProgress(null, 0);
+    }
+  }
+
+  function updateHover(x, y) {
+    const el = document.elementFromPoint(x, y);
+    const sel = '.btn-start, .q-option, .btn-action, .btn-retry, .ht-toggle';
+    const target = el ? el.closest(sel) : null;
+
+    if (target !== handTracking.hoverEl) {
+      if (handTracking.hoverEl) handTracking.hoverEl.classList.remove('hand-hover');
+      if (target) target.classList.add('hand-hover');
+      handTracking.hoverEl = target;
+      handTracking.swipe.history = [];
+      handTracking.swipe.lockedOption = null;
+      setSwipeProgress(null, 0);
+    }
+  }
+
+  function clearHover() {
+    if (handTracking.hoverEl) {
+      handTracking.hoverEl.classList.remove('hand-hover');
+      handTracking.hoverEl = null;
+    }
+  }
+
+  // 홈/결과 화면: 주먹 → 활짝 펴기 = 클릭
+  function handleClickGesture(fist, open) {
+    const g = handTracking.gesture;
+    const now = performance.now();
+    if (g.state === 'idle') {
+      if (fist) { g.state = 'fist'; g.fistTime = now; }
+    } else if (g.state === 'fist') {
+      if (open) {
+        const elapsed = now - g.fistTime;
+        if (elapsed >= 80 && elapsed <= 2000 && handTracking.hoverEl) {
+          handTracking.hoverEl.click();
+        }
+        g.state = 'idle';
+      } else if (now - g.fistTime > 2500) {
+        g.state = 'idle';
+      }
+    }
+  }
+
+  // 문제 화면: 보기 위에서 오른쪽으로 스와이프 = 선택
+  function handleSwipe(x, y, openPalm) {
+    const sw = handTracking.swipe;
+    const now = performance.now();
+    if (now < sw.cooldownUntil) return;
+
+    const hovered = handTracking.hoverEl;
+    const overOption = hovered && hovered.classList.contains('q-option');
+
+    if (!openPalm || !overOption) {
+      sw.history = [];
+      sw.lockedOption = null;
+      setSwipeProgress(null, 0);
+      return;
+    }
+
+    if (!sw.lockedOption) sw.lockedOption = hovered;
+
+    sw.history.push({ x, y, t: now });
+    sw.history = sw.history.filter(p => now - p.t < 600);
+    if (sw.history.length < 3) return;
+
+    const first = sw.history[0];
+    const last  = sw.history[sw.history.length - 1];
+    const dx = last.x - first.x;
+    const dy = Math.abs(last.y - first.y);
+    const dt = last.t - first.t;
+
+    const SWIPE_PX = Math.min(220, window.innerWidth * 0.35);
+    const progress = Math.max(0, Math.min(1, dx / SWIPE_PX));
+    setSwipeProgress(sw.lockedOption, progress);
+
+    if (dx >= SWIPE_PX && dy < dx * 0.6 && dt < 900) {
+      const target = sw.lockedOption;
+      sw.history = [];
+      sw.lockedOption = null;
+      sw.cooldownUntil = now + 700;
+      setSwipeProgress(null, 0);
+      if (target) target.click();
+    }
+  }
+
+  function setSwipeProgress(el, p) {
+    document.querySelectorAll('.q-option').forEach(o => {
+      if (o !== el) o.style.setProperty('--swipe-progress', '0%');
+    });
+    if (el) el.style.setProperty('--swipe-progress', (p * 100) + '%');
+  }
+
+  // 화면 전환 시 상태 리셋
+  const observer = new MutationObserver(() => {
+    handTracking.gesture.state = 'idle';
+    handTracking.swipe.history = [];
+    handTracking.swipe.lockedOption = null;
+    setSwipeProgress(null, 0);
+    clearHover();
+  });
+  document.querySelectorAll('.screen').forEach(s => {
+    observer.observe(s, { attributes: true, attributeFilter: ['class'] });
+  });
+
+  // showToast / updateHint 전역 노출
+  window.showToast = window.showToast || function(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+  };
+  window.updateHint = window.updateHint || function() {};
 </script>
 
 </body>
