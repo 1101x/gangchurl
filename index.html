@@ -303,7 +303,7 @@
 </div>
 
 <!-- Hand tracking UI -->
-<!--<button class="ht-toggle" id="ht-toggle" title="손 제스처 제어 켜기/끄기" aria-label="hand tracking toggle">
+<button class="ht-toggle" id="ht-toggle" title="손 제스처 제어 켜기/끄기" aria-label="hand tracking toggle">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
     <path d="M7 11V6a1.5 1.5 0 0 1 3 0v5"/>
     <path d="M10 11V4.5a1.5 1.5 0 0 1 3 0V11"/>
@@ -314,7 +314,7 @@
 
 <div class="ht-cursor" id="ht-cursor"></div>
 <div class="ht-hint" id="ht-hint"></div>
--->
+
 <div class="toast" id="toast">복사되었습니다</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -447,14 +447,15 @@
       btn.innerHTML = `<span class="q-num-tag">${num}</span>${opt.text}`;
       btn.style.animationDelay = (0.05 * i) + 's';
       btn.onclick = () => selectOption(opt.sin);
-      btn.dataset.sin = opt.sin;
       opts.appendChild(btn);
     });
+    clearHover();
   }
 
   function selectOption(sin) {
     scores[sin] += 1;
     answers.push(sin);
+    document.querySelectorAll('.q-option').forEach(o => o.classList.remove('hand-hover'));
     if (currentQ < questions.length - 1) {
       currentQ++;
       renderQuestion();
@@ -658,6 +659,7 @@
       handTracking.swipe.history = [];
       cursorEl.classList.remove('fist');
       setSwipeProgress(null, 0);
+      clearHover();
       return;
     }
 
